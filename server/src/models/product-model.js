@@ -19,6 +19,10 @@ Produit.init({
         type: DataTypes.FLOAT,
         allowNull: false
     },
+    stock: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     id_categorie: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -29,7 +33,8 @@ Produit.init({
     },
     date_creation: {
         type: DataTypes.DATEONLY,
-        allowNull: false
+        allowNull: false,
+        defaultValue: DataTypes.NOW
     },
     date_modification: {
         type: DataTypes.DATE,

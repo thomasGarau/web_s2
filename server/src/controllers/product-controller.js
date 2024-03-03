@@ -1,50 +1,58 @@
 /* A faire en déleguant tout les calculs récupération de données etc au service dédié ou autre service si fonction commune */
-const userService = require('../services/product-service')
+const productService = require('../services/product-service')
 
-exports.getProduct = ((req,res) => {
+exports.getProduct = ( async (req,res) => {
     try {
-        const data = null;
-        res.status(200).send({produit: data});
+        const label = req.body.label;
+        const product = await productService.getProduct(label);
+        res.status(200).send(product);
     }
     catch (err) {
         res.status(500).send('Erreur lors de la récupération des produits');
     }
 });
 
-exports.getAllProduct = ((req,res) => {
+exports.getAllProduct = ( async (req,res) => {
     try {
-        const data = null;
-        res.status(200).send({produit: data});
+        const id_categorie = req.body.id_categorie;
+        const products = await  productService.getAllProduct(id_categorie);
+        res.status(200).send(products);
     }
     catch (err) {
         res.status(500).send('Erreur lors de la récupération des produits');
+        console.log(err);
     }
 });
 
 
-exports.addProduct = ((req,res) => {
+exports.addProduct = (async (req,res) => {
     try {
-        const data = null;
+        const { label, prix, id_categorie, stock } = req.body;
+        await productService.addProduct(label, prix, id_categorie, stock);
         res.status(200).send("ok");
     }
     catch (err) {
         res.status(500).send('Erreur lors de l\'ajout des produits');
+        console.log(err);
     }
 });
 
-exports.deleteProduct = ((req,res) => {
+exports.deleteProduct = (async (req,res) => {
     try {
-        const data = null;
+        await productService.deleteProduct(req.body.id_produit);
         res.status(200).send("ok");
     }
     catch (err) {
+        console.log(err);
         res.status(500).send('Erreur lors de la suppression des produits');
     }
 });
 
 exports.updateProduct = ((req,res) => {
     try {
-        const data = null;
+
+        const {id, nom, quantite, prix } = req.body;
+        productService.updateProduct(id, nom, quantite, prix);
         res.status(200).send("ok");
     }
     catch (err) {
