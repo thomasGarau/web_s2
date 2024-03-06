@@ -47,4 +47,8 @@ Produit.init({
     timestamps: false
 });
 
+Produit.beforeUpdate((produit) => {
+    produit.date_modification = new Date();
+});
+
 module.exports = Produit;

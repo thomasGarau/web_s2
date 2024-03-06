@@ -12,6 +12,8 @@ app.listen(port, () => {
 
 const userRoute = require('./src/routes/user-route');
 const productRoute = require('./src/routes/product-route');
+const categorieRoute = require('./src/routes/categorie-route');
 app.use('/user', userRoute);
 app.use('/product', productRoute);
+app.use('/categorie', categorieRoute);
     

@@ -48,11 +48,11 @@ exports.deleteProduct = (async (req,res) => {
     }
 });
 
-exports.updateProduct = ((req,res) => {
+exports.updateProduct = ( async (req,res) => {
     try {
 
-        const {id, nom, quantite, prix } = req.body;
-        productService.updateProduct(id, nom, quantite, prix);
+        const {id, nom, quantite, prix, id_categorie } = req.body;
+        await productService.updateProduct(id, nom, quantite, prix, id_categorie);
         res.status(200).send("ok");
     }
     catch (err) {

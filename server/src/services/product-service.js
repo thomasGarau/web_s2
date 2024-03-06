@@ -38,13 +38,26 @@ async function deleteProduct(id_produit) {
     }
 }
 
-async function updateProduct(id_produit, label, prix, id_categorie) {
+async function updateProduct(id, nom, quantite, prix, id_categorie) {
     try {
-        const data = await Product.updateOne({ _id: id_produit }, { label: label, prix: prix, id_categorie: id_categorie });
-        return data;
-    }
-    catch (err) {
-        throw new Error('Erreur lors de la mise à jour des produits');
+        // Trouver le produit à mettre à jour
+        const existingProduct = await Product.findByPk(id);
+
+        if (!existingProduct) {
+            throw new Error('Produit non trouvé');
+        }
+
+        // Mettre à jour les champs du produit
+        existingProduct.label = nom;
+        existingProduct.stock = quantite;
+        existingProduct.prix = prix;
+        existingProduct.id_categorie = id_categorie;
+
+        // Sauvegarder les modifications dans la base de données
+        await existingProduct.save();
+    } catch (err) {
+        console.error(err);
+        throw new Error('Erreur lors de la mise à jour du produit');
     }
 }
 
@@ -52,5 +65,6 @@ module.exports = {
     getProduct,
     getAllProduct,
     addProduct,
-    deleteProduct
+    deleteProduct,
+    updateProduct
 };
