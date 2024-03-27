@@ -40,17 +40,12 @@ async function deleteCategorie(id_categorie) {
 
 async function updateCategorie(id, label) {
     try {
-        // Trouver la catégorie à mettre à jour
         const existingCategorie = await categorie.findByPk(id);
 
         if (!existingCategorie) {
             throw new Error('Catégorie non trouvée');
         }
-
-        // Mettre à jour les champs de la catégorie
         existingCategorie.label = label;
-
-        // Sauvegarder les modifications dans la base de données
         await existingCategorie.save();
     } catch (err) {
         console.error(err);

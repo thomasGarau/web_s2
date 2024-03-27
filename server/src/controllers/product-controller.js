@@ -1,4 +1,3 @@
-/* A faire en déleguant tout les calculs récupération de données etc au service dédié ou autre service si fonction commune */
 const productService = require('../services/product-service')
 
 exports.getProduct = ( async (req,res) => {
@@ -48,16 +47,16 @@ exports.deleteProduct = (async (req,res) => {
     }
 });
 
-exports.updateProduct = ( async (req,res) => {
+exports.updateProduct = async (req, res) => {
     try {
-
-        const {id, nom, quantite, prix, id_categorie } = req.body;
-        await productService.updateProduct(id, nom, quantite, prix, id_categorie);
-        res.status(200).send("ok");
+        const { id, ...fieldsToUpdate } = req.body;
+        
+        await productService.updateProduct(id, fieldsToUpdate);
+        res.status(200).send("Produit mis à jour avec succès.");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erreur lors de la mise à jour du produit');
     }
-    catch (err) {
-        res.status(500).send('Erreur lors de la mise à jour des produits');
-    }
-});
+};
 
 /* peut etre également définir des fonction de modification du stock d'un produit ou le faire via des service trigger à toi de voir en fonction du tp */
