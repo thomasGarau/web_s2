@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder }  from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
@@ -9,29 +9,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  loginForm: FormGroup = this.formBuilder.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]]
-  });
+  loginForm: FormGroup;
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) {
-    this.createForm();
-  }
-
-  createForm() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required])
     });
   }
 
-  onLogin() {
+  onLogin(): void {
     const { email, password } = this.loginForm.value;
-    this.authService.login(email, password).subscribe(success => {
+    this.authService.login(email, password).subscribe((success: boolean) => {
       if (success) {
         this.router.navigate(['/dashboard']);
       } else {
-        // Handle login error
+        console.error('Login failed');
       }
     });
   }

@@ -5,12 +5,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Pour les f
 import { HttpClientModule } from '@angular/common/http'; // Pour les requêtes HTTP
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Pour les animations
 
+import { DashboardRoutingModule } from './dashboard/dashboard-routing.module'; // Votre DashboardRoutingModule
 import { AppComponent } from './app.component'; // Assurez-vous que ce chemin correspond à votre AppComponent
 import { AuthModule } from './auth/auth.module'; // Votre AuthModule
 
 @NgModule({
   declarations: [
-    AppComponent, // Votre composant racine doit être déclaré ici
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -18,10 +19,11 @@ import { AuthModule } from './auth/auth.module'; // Votre AuthModule
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    AuthModule, // Importez votre AuthModule pour inclure LoginComponent et RegisterComponent
-    // Si vous avez un AppRoutingModule, importez-le ici également
+    DashboardRoutingModule,
+    AuthModule,
+
   ],
   providers: [],
-  bootstrap: [AppComponent] // Démarre avec le AppComponent
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
