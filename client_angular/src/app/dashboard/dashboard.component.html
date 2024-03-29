@@ -1,1 +1,24 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+    <h1>Dashboard Supermarché</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Prix</th>
+          <th>Quantité</th>
+          <!-- Ajouter d'autres colonnes au besoin -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.quantity }}</td>
+          <!-- Ajouter d'autres cellules au besoin -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

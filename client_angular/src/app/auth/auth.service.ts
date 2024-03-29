@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { map, catchError } from 'rxjs/operators';
 export class AuthService {
   private authUrl = 'http://your-api-url';
 
-  constructor(private http: HttpClient) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient, ) {}
 
   login(email: string, password: string): Observable<boolean> {
     return this.http.post<any>(`${this.authUrl}/login`, { email, password })

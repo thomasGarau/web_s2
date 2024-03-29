@@ -3,10 +3,10 @@
       <div>
         <label for="email">Email:</label>
         <input type="email" formControlName="email" id="email">
-        <div *ngIf="registerForm.controls.email.errors?.required && registerForm.controls.email.touched">
+        <div *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched">
           Email is required
         </div>
-        <div *ngIf="registerForm.controls.email.errors?.email && registerForm.controls.email.touched">
+        <div *ngIf="registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.touched">
           Enter a valid email address
         </div>
       </div>
@@ -14,10 +14,10 @@
       <div>
         <label for="password">Password:</label>
         <input type="password" formControlName="password" id="password">
-        <div *ngIf="registerForm.controls.password.errors?.required && registerForm.controls.password.touched">
+        <div *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched">
           Password is required
         </div>
-        <div *ngIf="registerForm.controls.password.errors?.minlength && registerForm.controls.password.touched">
+        <div *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.touched">
           Password must be at least 6 characters long
         </div>
       </div>
@@ -25,7 +25,7 @@
       <div>
         <label for="confirmPassword">Confirm Password:</label>
         <input type="password" formControlName="confirmPassword" id="confirmPassword">
-        <div *ngIf="registerForm.errors?.passwordMismatch && registerForm.controls.confirmPassword.touched">
+        <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched">
           Passwords do not match
         </div>
       </div>
@@ -37,4 +37,3 @@
       </div>
     </form>
   </div>
-  
