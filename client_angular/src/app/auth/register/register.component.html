@@ -1,39 +1,55 @@
 <div class="register-container">
-    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" formControlName="email" id="email">
-        <div *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched">
-          Email is required
-        </div>
-        <div *ngIf="registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.touched">
-          Enter a valid email address
-        </div>
+  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <div>
+      <label for="email">Email :</label>
+      <input type="email" formControlName="email" id="email">
+      <div *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched">
+        L'email est requis.
       </div>
-      
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" formControlName="password" id="password">
-        <div *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched">
-          Password is required
-        </div>
-        <div *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.touched">
-          Password must be at least 6 characters long
-        </div>
+      <div *ngIf="registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.touched">
+        Veuillez entrer une adresse email valide.
       </div>
-      
-      <div>
-        <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" formControlName="confirmPassword" id="confirmPassword">
-        <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched">
-          Passwords do not match
-        </div>
+    </div>
+
+    <div>
+      <label for="name">Nom :</label>
+      <input type="text" formControlName="name" id="name">
+      <div *ngIf="registerForm.get('name')?.errors?.['required'] && registerForm.get('name')?.touched">
+        Le nom est requis.
       </div>
-      
-      <button type="submit" [disabled]="registerForm.invalid">Register</button>
-      
-      <div *ngIf="error" class="error">
-        {{ error }}
+    </div>
+
+    <div>
+      <label for="firstName">Prénom :</label>
+      <input type="text" formControlName="firstName" id="firstName">
+      <div *ngIf="registerForm.get('firstName')?.errors?.['required'] && registerForm.get('firstName')?.touched">
+        Le prénom est requis.
       </div>
-    </form>
-  </div>
+    </div>
+
+    <div>
+      <label for="password">Mot de passe :</label>
+      <input type="password" formControlName="password" id="password">
+      <div *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched">
+        Le mot de passe est requis.
+      </div>
+      <div *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.touched">
+        Le mot de passe doit comporter au moins 6 caractères.
+      </div>
+    </div>
+
+    <div>
+      <label for="confirmPassword">Confirmez le mot de passe :</label>
+      <input type="password" formControlName="confirmPassword" id="confirmPassword">
+      <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched">
+        Les mots de passe ne correspondent pas.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
+
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+  </form>
+</div>

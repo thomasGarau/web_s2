@@ -22,22 +22,26 @@ export class RegisterComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]],
+      name: ['', Validators.required],
+      firstName: ['', Validators.required],
     }, { validators: passwordMatchValidator });
+    
   }
 
   onRegister(): void {
     if (this.registerForm.invalid) {
-      this.error = 'Form is not valid!';
+      this.error = 'Le formulaire n\'est pas valide !';
       return;
     }
-
-    const { email, password } = this.registerForm.value;
-    this.authService.register(email, password).subscribe((success: boolean) => {
+  
+    const { email, password, name, firstName } = this.registerForm.value;
+    this.authService.register(email, password, name, firstName).subscribe((success: boolean) => {
       if (success) {
         this.router.navigate(['/dashboard']);
       } else {
-        this.error = 'Registration failed!';
+        this.error = 'L\'inscription a échoué !';
       }
     });
   }
+  
 }
