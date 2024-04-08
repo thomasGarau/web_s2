@@ -2,8 +2,8 @@ const productService = require('../services/product-service')
 
 exports.getProduct = ( async (req,res) => {
     try {
-        const label = req.body.label;
-        const product = await productService.getProduct(label);
+        const id_produit = req.body.id_produit;
+        const product = await productService.getProduct(id_produit);
         res.status(200).send(product);
     }
     catch (err) {

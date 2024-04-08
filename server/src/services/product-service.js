@@ -1,8 +1,8 @@
 const Product = require('../models/product-model');
 
-async function getProduct(label) {
+async function getProduct(id_produit) {
     try {
-        return await Product.findOne({ where : { label: label }});
+        return await Product.findOne({ where : { id_produit: id_produit }});
     }
     catch (err) {
         throw new Error(err, 'Erreur lors de la récupération des produits');

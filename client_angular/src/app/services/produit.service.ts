@@ -33,6 +33,29 @@ export class ProduitService {
       })
     );
   }
+
+  getProduit(id: string): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+  
+    // Pour POST, les données sont envoyées dans le corps de la requête
+    const body = { id_produit: id };
+  
+    return this.http.post<any>(`${this.appUrl}/product`, body, { headers }).pipe(
+      map(response => {
+        console.log('Réponse de la requête', response);
+        return response;
+      }),
+      catchError(error => {
+        console.error('Erreur lors de la récupération du produit', error);
+        throw error;
+      })
+    );
+  }
   
   
   

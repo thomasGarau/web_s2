@@ -11,20 +11,36 @@ export class PanierService {
 
   constructor(private http: HttpClient) { }
 
-  avoirPanier(produit : any): Observable<any> {
+  obtenirPanier(): Observable<any[]> {
+    const token = localStorage.getItem('auth_token');
+    let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    let user = localStorage.getItem('user');
+    const body = { id_utilisateur: user };
+
+    return this.http.post<any[]>(`${this.appUrl}/get`, body, { headers }).pipe
+    (
+      map(response => {
+        return response;
+      }),
+      catchError(error => {
+        console.error('Erreur lors de la récupération du panier', error);
+        throw error;
+      })
+    );
+    
+  }
+
+  avoirProduitPanier(produit : any): Observable<any> {
     const token = localStorage.getItem('auth_token');
     let headers = new HttpHeaders();
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
-
     const user = localStorage.getItem('user');
     if(!user) {
       console.error('Utilisateur non connecté');
     }
-
     const body = { id_utilisateur: user, id_produit : produit };
-
     return this.http.post<any>(`${this.appUrl}/getProduits`, body, {headers} ).pipe(
       map(response => {
         return response;
@@ -87,5 +103,7 @@ export class PanierService {
       }
     );
   }
+
+
   
 }

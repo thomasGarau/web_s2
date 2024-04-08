@@ -1,0 +1,30 @@
+<div class="panier-list">
+    <table>
+        <thead>
+            <tr>
+                <th>Label</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Action</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let produit of produits">
+                <td>{{ label[produit.id_produit] }}</td>
+                <td>{{ prix[produit.id_produit] }}</td>
+                <td>{{ quantites[produit.id_produit] }}</td>
+                
+                <td>
+                    <button (click)="ajouterAuPanier(produit)">+</button>
+                    <button (click)="enleverDuPanier(produit)" [hidden]="!quantites[produit.id_produit] || quantites[produit.id_produit] <= 0">-</button>
+                </td>
+                <td>{{ quantites[produit.id_produit] * prix[produit.id_produit] }}</td>
+            </tr>
+            <tr>
+                <td colspan="4">Total</td>
+                <td>{{ total }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

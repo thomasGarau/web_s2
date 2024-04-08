@@ -49,7 +49,7 @@ export class ProduitsCategorieComponent implements OnInit {
   }
 
   QuantiteProduitPanier(produit: any): void {
-    this.panierService.avoirPanier(produit.id_produit).subscribe(
+    this.panierService.avoirProduitPanier(produit.id_produit).subscribe(
       (data) => {
         if (data && data.quantite !== undefined) {
           this.quantites[produit.id_produit] = data.quantite;
