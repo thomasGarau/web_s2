@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component'; // Assurez-vous de créer
 import { AuthGuard } from './guards/auth.guard';
 import { ReverseAuthGuard } from './guards/reverse-auth.guard'; // Nouveau guard à créer
 import { CategorieComponent } from './categorie/categorie.component';
+import { ProduitsCategorieComponent } from './produits-categorie/produits-categorie.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [ReverseAuthGuard] },
@@ -14,6 +15,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent, canActivate: [ReverseAuthGuard] },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'categorie', component: CategorieComponent, canActivate: [AuthGuard] },
+    { path: 'categories/:id/produits', component: ProduitsCategorieComponent, canActivate: [AuthGuard] },
     { path: '**', redirectTo: '' }
 ];
 

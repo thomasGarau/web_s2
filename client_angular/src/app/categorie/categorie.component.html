@@ -1,6 +1,8 @@
 <div class="categorie-list">
-    <h2>Liste des Catégories</h2>
-    <ul>
-      <li *ngFor="let categorie of categories">{{ categorie.label }}</li>
-    </ul>
+  <h2>Liste des Catégories</h2>
+  <ul>
+    <li *ngFor="let categorie of categories">
+      <a [routerLink]="['/categories', categorie.id_categorie, 'produits']">{{ categorie.label }}</a>
+    </li>
+  </ul>
 </div>

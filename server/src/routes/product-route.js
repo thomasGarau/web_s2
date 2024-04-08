@@ -4,8 +4,8 @@ const { getProduct, getAllProduct, addProduct, deleteProduct, updateProduct } = 
 const { validateField } = require('../middlewares/sanitizeInput.js');
 const { verifyTokenBlacklist, verifyAuthorisation } = require('../middlewares/verifyAuthorisation.js');
 
-router.get('/product', validateField('label'), getProduct);
-router.get('/all',validateField('id_categorie'), getAllProduct);
+router.post('/product', validateField('label'), getProduct);
+router.post('/all',validateField('id_categorie'), getAllProduct);
 router.post('/add', [verifyAuthorisation, verifyTokenBlacklist, validateField('label','price', 'id_category', 'stock')] , addProduct);
 router.delete('/delete',[verifyAuthorisation, verifyTokenBlacklist, validateField('id_user')],  deleteProduct);
 router.put('/update', [verifyAuthorisation, verifyTokenBlacklist, validateField()],  updateProduct);

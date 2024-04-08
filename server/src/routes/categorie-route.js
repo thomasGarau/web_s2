@@ -4,7 +4,7 @@ const { getCategorie, getAllCategorie, addCategorie, deleteCategorie, updateCate
 const { validateField } = require('../middlewares/sanitizeInput.js');
 const { verifyTokenBlacklist, verifyAuthorisation } = require('../middlewares/verifyAuthorisation.js');
 
-router.get('/categorie', validateField('label'), getCategorie);
+router.post('/categorie', validateField('label'), getCategorie);
 router.get('/all',getAllCategorie);
 router.post('/add', [verifyAuthorisation, verifyTokenBlacklist, validateField('label')] , addCategorie);
 router.delete('/delete',[verifyAuthorisation, verifyTokenBlacklist, validateField('id_categorie')],  deleteCategorie);
