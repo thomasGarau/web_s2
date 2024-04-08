@@ -4,6 +4,7 @@ CREATE TABLE `utilisateur` (
   `prenom` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `mdp` varchar(255) NOT NULL,
+  `role` ENUM('admin', 'client') NOT NULL DEFAULT 'client',
   PRIMARY KEY (`id_utilisateur`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

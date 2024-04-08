@@ -26,7 +26,7 @@ export class LoginComponent {
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe((success: boolean) => {
       if (success) {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/categorie']);
       } else {
         console.error('Login failed');
       }

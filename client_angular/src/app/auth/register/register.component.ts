@@ -37,7 +37,7 @@ export class RegisterComponent {
     const { email, password, name, firstName } = this.registerForm.value;
     this.authService.register(email, password, name, firstName).subscribe((success: boolean) => {
       if (success) {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/categorie']);
       } else {
         this.error = 'L\'inscription a échoué !';
       }
