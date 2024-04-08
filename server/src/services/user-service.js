@@ -6,7 +6,8 @@ const bcrypt = require('bcrypt');
 const authenticateUser = async (username, password) => {
     const user = await Utilisateur.findOne({ where: { email: username } });
     if (user && await bcrypt.compare(password, user.mdp)) {
-        return genToken(user.id_utilisateur);
+        const token = genToken(user.id_utilisateur);
+        return { token: token, id_utilisateur: user.id_utilisateur };
     } else {
         throw new Error('Identifiants incorrects');
     }
@@ -20,7 +21,9 @@ const registerUser = async (username, password, name, firstname) => {
             nom: name,
             prenom: firstname,
         });
-        return genToken(newUser.id_utilisateur);
+        const token = genToken(newUser.id_utilisateur);
+
+        return { token: token, id_utilisateur: newUser.id_utilisateur };
     } catch (err) {
         console.error(err);
         throw new Error('Erreur durant l\'inscription');

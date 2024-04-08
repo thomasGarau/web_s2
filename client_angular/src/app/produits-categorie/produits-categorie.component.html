@@ -1,7 +1,25 @@
 <div class="produits-liste">
-    <h2>Produits</h2>
-    <ul>
-      <li *ngFor="let produit of produits">{{ produit.label }}</li>
-    </ul>
-  </div>
-  
+  <h2>Produits</h2>
+  <table *ngIf="produits.length > 0">
+    <thead>
+      <tr>
+        <th>Label</th>
+        <th>Prix</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produit of produits">
+        <td>{{ produit.label }}</td>
+        <td>{{ produit.prix }}</td>
+        <td>
+          <button (click)="ajouterAuPanier(produit)">+</button>
+          <!-- Condition pour afficher la quantité seulement si elle est supérieure à 0 -->
+          <span class="quantite_produit_panier" *ngIf="quantites[produit.id_produit] && quantites[produit.id_produit] > 0">{{ quantites[produit.id_produit] }}</span>
+          <button (click)="enleverDuPanier(produit)" [hidden]="!quantites[produit.id_produit] || quantites[produit.id_produit] <= 0">-</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="produits.length === 0">Aucun produit trouvé</div>
+</div>

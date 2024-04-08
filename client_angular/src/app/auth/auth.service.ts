@@ -25,6 +25,7 @@ export class AuthService {
       .pipe(
         map(response => {
           localStorage.setItem('auth_token', response.token);
+          localStorage.setItem('user', JSON.stringify(response.id_utilisateur));
           this.loggedInStatus.next(true);
           return true;
         }),
@@ -37,6 +38,7 @@ export class AuthService {
       .pipe(
         map(response => {
           localStorage.setItem('auth_token', response.token);
+          localStorage.setItem('user', JSON.stringify(response.id_utilisateur));
           this.loggedInStatus.next(true);
           return true;
         }),

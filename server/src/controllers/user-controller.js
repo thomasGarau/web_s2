@@ -19,8 +19,8 @@ exports.verifyToken = ((req,res) => {
 exports.Authenticate = (async (req,res) => {
     try {
         const {email, password} = req.body;
-        const token = await userService.authenticateUser(email, password);
-        res.status(200).send({email: email, token: token, days: 7});
+        const {token, id_utilisateur} = await userService.authenticateUser(email, password);
+        res.status(200).send({email: email, token: token, days: 7, id_utilisateur: id_utilisateur});
     } catch (err) {
         console.error(err);
         res.status(500).send('Echec de l authentification');
@@ -31,8 +31,8 @@ exports.Authenticate = (async (req,res) => {
     try {
         const { email, password, name, firstname } = req.body;
         if(!await userService.userExist(email)){
-            const token = await userService.registerUser(email, password, name, firstname);
-            res.status(200).send({email: email, token: token, days: 7});
+            const {token, id_utilisateur} = await userService.registerUser(email, password, name, firstname);
+            res.status(200).send({email: email, token: token, days: 7, id_utilisateur: id_utilisateur});
         }else{
             res.status(401).send("Nom d utilisateur déjà utilisé");
         }
