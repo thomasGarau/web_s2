@@ -1,0 +1,41 @@
+<div class="produits-liste">
+    <h2>Produits Back Office</h2>
+    <table *ngIf="produits.length > 0">
+      <thead>
+        <tr>
+          <th>Label</th>
+          <th>Prix</th>
+          <th>Quantité</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let produit of produits; let i = index">
+          <ng-container *ngIf="produit.enEdition; else vueNormale">
+            <td> <input type="text" [(ngModel)]="produit.label"/></td>
+            <td> <input type="number" [(ngModel)]="produit.prix"/></td>
+            <td> <input type="number" [(ngModel)]="produit.stock"/></td>
+            <td>
+              <button (click)="sauvegarder(produit, i)">Sauvegarder</button>
+              <button (click)="annulerEdition(produit, i)">Annuler</button>
+            </td>
+          </ng-container>
+          <ng-template #vueNormale>
+            <td>{{ produit.label }}</td>
+            <td>{{ produit.prix | currency }}</td>
+            <td>{{ produit.stock }}</td>
+            <td>
+              <button (click)="modifierLeProduit(produit, i)">Modifier</button>
+            </td>
+          </ng-template>
+        </tr>
+        <tr>
+            <td> <input type="text" placeholder="Nom" [(ngModel)]="nouveauProduit.label"/></td>
+            <td> <input type="number" placeholder="Prix" [(ngModel)]="nouveauProduit.prix"/></td>
+            <td> <input type="number" placeholder="Quantité" [(ngModel)]="nouveauProduit.stock"/></td>
+            <td> <button (click)="ajouterProduit()">Ajouter</button> </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="produits.length === 0">Aucun produit trouvé</div>
+</div>

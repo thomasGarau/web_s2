@@ -25,6 +25,11 @@ Utilisateur.init({
     mdp: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    role : {
+        type: DataTypes.ENUM('client', 'admin'),
+        defaultValue: 'client',
+        allowNull: false
     }
 }, {
     sequelize,

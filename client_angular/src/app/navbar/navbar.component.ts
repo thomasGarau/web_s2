@@ -50,4 +50,8 @@ export class NavbarComponent {
     
   }
 
+  role() : boolean {
+    return this.authService.isAdmin();
+  }
+
 }

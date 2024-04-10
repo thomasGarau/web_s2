@@ -37,15 +37,20 @@ async function deleteProduct(id_produit) {
     }
 }
 
-async function updateProduct(id, fieldsToUpdate) {
+async function updateProduct(id_produit, label, prix, stock) {
     try {
-        const existingProduct = await Product.findByPk(id);
+        const existingProduct = await Product.findByPk(id_produit);
 
         if (!existingProduct) {
             throw new Error('Produit non trouvé');
         }
 
-        await existingProduct.update(fieldsToUpdate);
+        await existingProduct.update({
+            label: label,
+            prix: prix,
+            stock: stock
+        });
+        
         await existingProduct.save();
         
     } catch (err) {

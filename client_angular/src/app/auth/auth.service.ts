@@ -26,6 +26,7 @@ export class AuthService {
         map(response => {
           localStorage.setItem('auth_token', response.token);
           localStorage.setItem('user', JSON.stringify(response.id_utilisateur));
+          localStorage.setItem('role', JSON.stringify(response.role));
           this.loggedInStatus.next(true);
           return true;
         }),
@@ -55,4 +56,12 @@ export class AuthService {
   isLoggedIn(): Observable<boolean> {
     return this.loggedInStatus.asObservable();
   }
+
+  isAdmin() : boolean {
+    let role = localStorage.getItem('role');
+    if(role == null) return false;
+    role = JSON.parse(role);
+    return role === "admin";
+  }
+
 }

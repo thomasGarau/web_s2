@@ -19,8 +19,8 @@ exports.verifyToken = ((req,res) => {
 exports.Authenticate = (async (req,res) => {
     try {
         const {email, password} = req.body;
-        const {token, id_utilisateur} = await userService.authenticateUser(email, password);
-        res.status(200).send({email: email, token: token, days: 7, id_utilisateur: id_utilisateur});
+        const {token, id_utilisateur, role} = await userService.authenticateUser(email, password);
+        res.status(200).send({email: email, token: token, days: 7, id_utilisateur: id_utilisateur, role : role});
     } catch (err) {
         console.error(err);
         res.status(500).send('Echec de l authentification');

@@ -28,7 +28,7 @@ exports.addProduct = (async (req,res) => {
     try {
         const { label, prix, id_categorie, stock } = req.body;
         await productService.addProduct(label, prix, id_categorie, stock);
-        res.status(200).send("ok");
+        res.status(200).json({message : "ok"});
     }
     catch (err) {
         res.status(500).send('Erreur lors de l\'ajout des produits');
@@ -49,10 +49,10 @@ exports.deleteProduct = (async (req,res) => {
 
 exports.updateProduct = async (req, res) => {
     try {
-        const { id, ...fieldsToUpdate } = req.body;
+        const { id_produit, label, prix, stock} = req.body;
         
-        await productService.updateProduct(id, fieldsToUpdate);
-        res.status(200).send("Produit mis à jour avec succès.");
+        await productService.updateProduct(id_produit, label, prix, stock );
+        res.status(200).json({message : "Produit mis à jour avec succès."});
     } catch (err) {
         console.error(err);
         res.status(500).send('Erreur lors de la mise à jour du produit');

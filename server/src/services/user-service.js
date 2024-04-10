@@ -7,7 +7,7 @@ const authenticateUser = async (username, password) => {
     const user = await Utilisateur.findOne({ where: { email: username } });
     if (user && await bcrypt.compare(password, user.mdp)) {
         const token = genToken(user.id_utilisateur);
-        return { token: token, id_utilisateur: user.id_utilisateur };
+        return { token: token, id_utilisateur: user.id_utilisateur, role : user.role};
     } else {
         throw new Error('Identifiants incorrects');
     }

@@ -28,4 +28,44 @@ export class CategorieService {
       })
     );
   }
+
+  updateCategorie(category: any): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    return this.http.put<any>(`${this.appUrl}/${category.id}`, category, { headers }).pipe(
+      map(response => {
+        return response;
+      }),
+      catchError(error => {
+        // Gestion des erreurs
+        console.error('Erreur lors de la mise à jour de la catégorie', error);
+        throw error;
+      })
+    );
+  }
+
+  deleteCategorie(id: number): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    return this.http.delete<any>(`${this.appUrl}/${id}`, { headers }).pipe(
+      map(response => {
+        return response;
+      }),
+      catchError(error => {
+        // Gestion des erreurs
+        console.error('Erreur lors de la suppression de la catégorie', error);
+        throw error;
+      })
+    );
+  }
 }

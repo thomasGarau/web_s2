@@ -1,24 +1,20 @@
 <div class="dashboard">
-    <h1>Dashboard Supermarché</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nom</th>
-          <th>Prix</th>
-          <th>Quantité</th>
-          <!-- Ajouter d'autres colonnes au besoin -->
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of products">
-          <td>{{ product.id }}</td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.price }}</td>
-          <td>{{ product.quantity }}</td>
-          <!-- Ajouter d'autres cellules au besoin -->
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+  <h1>Dashboard Back Office</h1>
+  <h2>Liste des Catégories</h2>
+  <ul>
+    <li *ngFor="let categorie of categories">
+      <!-- Vue d'édition -->
+      <ng-container *ngIf="categorie.enEdition; else vueNormale">
+        <input type="text" [(ngModel)]="categorie.label"/>
+        <button (click)="sauvegarderCategorie(categorie)">Sauvegarder</button>
+        <button (click)="annulerEdition(categorie)">Annuler</button>
+      </ng-container>
+      <!-- Vue normale -->
+      <ng-template #vueNormale>
+        <a [routerLink]="['/produit-backoffice', categorie.id_categorie, 'produits']">{{ categorie.label }}</a>
+        <button (click)="modifierCategorie(categorie)">Modifier</button>
+        <button (click)="supprimerCategorie(categorie)">Supprimer</button>
+      </ng-template>
+    </li>
+  </ul>
+</div>
