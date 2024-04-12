@@ -87,5 +87,16 @@ export class PanierComponent implements OnInit {
       }
     });
   }
+
+  viderPanier(): void {
+    this.panierService.viderPanier().subscribe({
+      next: () => {
+       this.chargerPanier();
+      },
+      error: (error: any) => {
+        console.error('Erreur lors de la suppression du panier', error);
+      }
+    });
+  }
   
 }

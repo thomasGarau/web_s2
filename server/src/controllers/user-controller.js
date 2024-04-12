@@ -16,6 +16,49 @@ exports.verifyToken = ((req,res) => {
     }
 })
 
+exports.getUser = (async (req,res) => {
+    try {
+        const id_user = req.body.id_user;
+        const user = await userService.getUser(id_user);
+        res.status(200).json(user);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Échec de la récupération de l\'utilisateur');
+    }
+})
+
+exports.getAllUsers = (async (req,res) => {
+    try {
+        const users = await userService.getAllUsers();
+        res.status(200).send(users);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Échec de la récupération des utilisateurs');
+    }
+})
+
+exports.updateUser = (async (req,res) => {
+    try {
+        const {id_user, nom, prenom, email, role} = req.body;
+        const user = await userService.updateUser(id_user, nom, prenom, email, role);
+        res.status(200).json({message: 'Utilisateur mis à jour avec succès'});
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Échec de la récupération de l\'utilisateur');
+    }
+})
+
+exports.deleteUser = (async (req,res) => {
+    try {
+        const id_user = req.query.id_user;
+        await userService.deleteUser(id_user);
+        res.status(200).json({message: 'Utilisateur supprimé avec succès'});
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Échec de la suppression de l\'utilisateur');
+    }
+})
+
 exports.Authenticate = (async (req,res) => {
     try {
         const {email, password} = req.body;

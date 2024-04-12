@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -29,7 +29,7 @@ export class CategorieService {
     );
   }
 
-  updateCategorie(category: any): Observable<any> {
+  updateCategorie(categorie: any): Observable<any> {
     const token = localStorage.getItem('auth_token');
     
     let headers = new HttpHeaders();
@@ -37,7 +37,10 @@ export class CategorieService {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
 
-    return this.http.put<any>(`${this.appUrl}/${category.id}`, category, { headers }).pipe(
+    const body = {id : categorie.id_categorie ,label :categorie.label};
+
+    console.log('body', body);
+    return this.http.put<any>(`${this.appUrl}/update`, body, { headers }).pipe(
       map(response => {
         return response;
       }),
@@ -57,7 +60,9 @@ export class CategorieService {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
 
-    return this.http.delete<any>(`${this.appUrl}/${id}`, { headers }).pipe(
+    const params = new HttpParams().set('id_categorie', id);
+
+    return this.http.delete<any>(`${this.appUrl}/delete`, { headers, params }).pipe(
       map(response => {
         return response;
       }),

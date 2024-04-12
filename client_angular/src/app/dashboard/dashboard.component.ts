@@ -31,6 +31,7 @@ export class DashboardComponent {
   loadCategories(): void {
     this.categorieService.getALLCategories().subscribe({
       next: (data: any[]) => {
+        data.sort((a, b) => a.id_categorie - b.id_categorie);
         this.categories = data;
       },
       error: (error: any) => {
@@ -41,7 +42,7 @@ export class DashboardComponent {
 
   modifierCategorie(categorie: any): void {
     categorie.enEdition = true;
-    this.categoriesBackup[categorie.id] = { ...categorie }; 
+    this.categoriesBackup[categorie.id_categorie] = { ...categorie }; 
   }
   
   sauvegarderCategorie(categorie: any): void {
@@ -49,6 +50,7 @@ export class DashboardComponent {
     this.categorieService.updateCategorie(categorie).subscribe({
       next: (data: any) => {
         console.log('Catégorie mise à jour', data);
+        this.loadCategories();
       },
       error: (error: any) => {
         console.error('Erreur lors de la mise à jour de la catégorie', error);
@@ -57,16 +59,16 @@ export class DashboardComponent {
   }
   
   annulerEdition(categorie: any): void {
-    this.categories[categorie.id] = { ...this.categoriesBackup[categorie.id] };
+    this.categories[categorie.id_categorie] = { ...this.categoriesBackup[categorie.id_categorie] };
     categorie.enEdition = false;
     this.loadCategories();
   }
 
   supprimerCategorie(categorie: any): void {
-    this.categories = this.categories.filter(c => c.id !== categorie.id);
-    this.categorieService.deleteCategorie(categorie.id).subscribe({
+    this.categorieService.deleteCategorie(categorie.id_categorie).subscribe({
       next: (data: any) => {
         console.log('Catégorie supprimée', data);
+        this.loadCategories();
       },
       error: (error: any) => {
         console.error('Erreur lors de la suppression de la catégorie', error);

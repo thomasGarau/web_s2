@@ -41,7 +41,7 @@ exports.addPanier = (async (req,res) => {
 
 exports.deletePanier = (async (req,res) => {
     try {
-        await panierService.deletePanier(req.params.id_utilisateur);
+        await panierService.deletePanier(req.query.id_utilisateur);
         res.json({ message: 'ok' });
     }
     catch (err) {
@@ -52,7 +52,6 @@ exports.deletePanier = (async (req,res) => {
 
 exports.deleteProduitPanier = (async (req,res) => {
     try {
-        console.log('id_utilisateur:', req.query.id_utilisateur, 'id_produit:', req.query.id_produit);
         await panierService.deleteProduitPanier(req.query.id_utilisateur, req.query.id_produit);
         res.status(200).json({message : "ok"});
     }

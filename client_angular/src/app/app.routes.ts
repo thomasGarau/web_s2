@@ -10,6 +10,7 @@ import { CategorieComponent } from './categorie/categorie.component';
 import { ProduitsCategorieComponent } from './produits-categorie/produits-categorie.component';
 import { PanierComponent } from './panier/panier.component';
 import { ProduitBackofficeComponent } from './produit-backoffice/produit-backoffice.component';
+import { UserComponent } from './user/user.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [ReverseAuthGuard] },
@@ -20,6 +21,7 @@ export const routes: Routes = [
     { path: 'categories/:id/produits', component: ProduitsCategorieComponent, canActivate: [AuthGuard] },
     { path: 'panier', component: PanierComponent, canActivate: [AuthGuard] },
     { path: 'produit-backoffice/:id/produits', component: ProduitBackofficeComponent, canActivate: [AuthGuard] },
+    { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
     { path: '**', redirectTo: '' }
 ];
 

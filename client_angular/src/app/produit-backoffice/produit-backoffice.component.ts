@@ -97,6 +97,18 @@ annulerEdition(produit: any, index: number): void {
   this.produits[index] = { ...this.produitsBackup[index] };
 }
 
+supprimerProduit(produit: any): void {
+  this.produitService.deleteProduit(produit.id_produit).subscribe({
+    next: (data: any) => {
+      console.log('Produit supprimé', data);
+      this.loadProduitsByCategorie(this.idCategorie);
+    },
+    error: (error: any) => {
+      console.error('Erreur lors de la suppression du produit', error);
+    }
+  });
+}
+
 
 
 }

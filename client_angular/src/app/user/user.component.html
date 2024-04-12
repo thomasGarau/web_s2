@@ -1,0 +1,38 @@
+<h2>Liste des Utilisateurs</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of utilisateurs">
+           <ng-container *ngIf="user.enEdition; else vueNormale">
+                <td><input type="text" [(ngModel)]="user.nom"/></td>
+                <td><input type="text" [(ngModel)]="user.prenom"/></td>
+                <td><input type="text" [(ngModel)]="user.email"/></td>
+                <td><select [(ngModel)]="user.role" name="role" id="role">
+                    <option value="admin">Admin</option>
+                    <option value="client">Client</option>
+                </select>
+                </td>
+                <td>
+                    <button (click)="saveUser(user)">Sauvegarder</button>
+                    <button (click)="annulerEdition(user)">Annuler</button>
+                </td>
+            </ng-container>
+            <ng-template #vueNormale>
+                <td>{{ user.nom }}</td>
+                <td>{{ user.prenom }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                    <button (click)="modifierUtilisateur(user)">Modifier</button>
+                    <button (click)="supprimerUtilisateur(user)">Supprimer</button>
+                </td>
+            </ng-template>
+        </tr>

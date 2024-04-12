@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -99,6 +99,28 @@ export class ProduitService {
       }),
       catchError(error => {
         console.error('Erreur lors de la mise à jour du produit', error);
+        throw error;
+      })
+    );
+  }
+
+  deleteProduit(id: number): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+  
+    const params = new HttpParams().set('id_produit', id);
+  
+    return this.http.delete<any>(`${this.appUrl}/delete`, { headers, params }).pipe(
+      map(response => {
+        console.log('Réponse de la requête', response);
+        return response;
+      }),
+      catchError(error => {
+        console.error('Erreur lors de la suppression du produit', error);
         throw error;
       })
     );

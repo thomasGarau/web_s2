@@ -38,8 +38,8 @@ exports.addProduct = (async (req,res) => {
 
 exports.deleteProduct = (async (req,res) => {
     try {
-        await productService.deleteProduct(req.body.id_produit);
-        res.status(200).send("ok");
+        await productService.deleteProduct(req.query.id_produit);
+        res.status(200).json({message : "ok"});
     }
     catch (err) {
         console.log(err);

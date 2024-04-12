@@ -13,6 +13,24 @@ const authenticateUser = async (username, password) => {
     }
 };
 
+const getUser = async (id_user) => {
+    try {
+        return await Utilisateur.findOne({ where: { id_utilisateur: id_user } });
+    } catch (err) {
+        console.error(err);
+        throw new Error('Échec de la récupération de l\'utilisateur');
+    }
+}
+
+const getAllUsers = async () => {
+    try {
+        return await Utilisateur.findAll();
+    } catch (err) {
+        console.error(err);
+        throw new Error('Échec de la récupération des utilisateurs');
+    }
+}
+
 const registerUser = async (username, password, name, firstname) => {
     try {
         const newUser = await Utilisateur.create({
@@ -29,6 +47,37 @@ const registerUser = async (username, password, name, firstname) => {
         throw new Error('Erreur durant l\'inscription');
     }
 };
+
+const updateUser = async (id_user, nom, prenom, email, role) => {
+    try {
+        const user = await Utilisateur.findByPk(id_user);
+        if(!user){
+            throw new Error('Utilisateur non trouvé');
+        }
+
+        await user.update({
+            nom: nom,
+            prenom: prenom,
+            email: email,
+            role: role
+        });
+        await user.save();
+    }
+    catch (err) {
+        console.error(err);
+        throw new Error('Échec de la récupération de l\'utilisateur');
+    }
+}
+
+const deleteUser = async (id_user) => {
+    try {
+        const data = await Utilisateur.destroy({ where : { id_utilisateur: id_user }});
+    }
+    catch (err) {
+        console.error(err);
+        throw new Error('Échec de la suppression de l\'utilisateur');
+    }
+}
 
 function genToken(user_id) {
     const token = jwt.sign({
@@ -80,6 +129,10 @@ async function invalidateToken(token) {
 module.exports = {
     authenticateUser,
     registerUser,
+    getUser,
+    getAllUsers,
+    updateUser,
+    deleteUser,
     userExist,
     verifyToken,
     isTokenBlacklisted,

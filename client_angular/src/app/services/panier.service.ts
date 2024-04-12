@@ -104,6 +104,30 @@ export class PanierService {
     );
   }
 
+  viderPanier(): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    const user = localStorage.getItem('user');
+    if(!user) {
+      console.error('Utilisateur non connecté');
+      throw new Error('Utilisateur non connecté');
+    }
+    const params = new HttpParams().set('id_utilisateur', user);
+
+    return this.http.delete<any>(`${this.appUrl}/delete`, { headers, params }).pipe(
+      map(response => {
+        return response;
+      }),
+      catchError(error => {
+        console.error('Erreur lors de la suppression du panier', error);
+        throw error;
+      })
+    );
+  }
+
 
   
 }

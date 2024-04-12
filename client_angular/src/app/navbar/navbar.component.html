@@ -1,8 +1,9 @@
 <ng-container *ngIf="(authService.isLoggedIn() | async); else loggedOut">
     <button (click)="logout()" routerLink="/home">Déconnexion</button>
-    <button routerLink="/categorie">Home</button>
-    <button routerLink="/panier">Panier</button>
+    <button *ngIf="!role()" routerLink="/categorie">Home</button>
+    <button *ngIf="!role()" routerLink="/panier">Panier</button>
     <button *ngIf="role()" routerLink="/dashboard">Dashboard</button>
+    <button *ngIf="role()" routerLink="/user">Utilisateur</button>
   </ng-container>
   <ng-template #loggedOut>
     <button *ngIf="showButton('login')" routerLink="/login">Login</button>

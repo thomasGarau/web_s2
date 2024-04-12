@@ -38,8 +38,8 @@ exports.addCategorie = (async (req,res) => {
 
 exports.deleteCategorie = (async (req,res) => {
     try {
-        await categorieService.deleteCategorie(req.body.id_categorie);
-        res.status(200).send("ok");
+        await categorieService.deleteCategorie(req.query.id_categorie);
+        res.status(200).json({mmessage : "ok"});
     }
     catch (err) {
         console.log(err);
@@ -52,7 +52,7 @@ exports.updateCategorie = ( async (req,res) => {
 
         const {id, label } = req.body;
         await categorieService.updateCategorie(id, label);
-        res.status(200).send("ok");
+        res.status(200).json({message : "ok"});
     }
     catch (err) {
         res.status(500).send('Erreur lors de la mise à jour des catégories');

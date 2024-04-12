@@ -1,4 +1,5 @@
 const categorie = require('../models/categorie-model');
+const produitService = require('./product-service');
 
 async function getCategorie(label) {
     try {
@@ -30,6 +31,10 @@ async function addCategorie(label) {
 
 async function deleteCategorie(id_categorie) {
     try {
+        produits = await produitService.getAllProduct(id_categorie);
+        for (let i = 0; i < produits.length; i++) {
+            await produitService.deleteProduct(produits[i].id_produit);
+        }
         const data = await categorie.destroy({ where : { id_categorie: id_categorie }});
     }
     catch (err) {
