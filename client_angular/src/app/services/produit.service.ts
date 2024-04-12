@@ -57,19 +57,16 @@ export class ProduitService {
     );
   }
 
-  addProduit(produit: any): Observable<any> {
+  addProduit(formData: FormData): Observable<any> {
     const token = localStorage.getItem('auth_token');
     
     let headers = new HttpHeaders();
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
+
   
-    // Pour POST, les données sont envoyées dans le corps de la requête
-    const body = { label : produit.label, prix : produit.prix, stock : produit.stock, id_categorie : produit.id_categorie};
-    console.log('Produit à ajouter', body);
-  
-    return this.http.post<any>(`${this.appUrl}/add`, body, { headers }).pipe(
+    return this.http.post<any>(`${this.appUrl}/add`, formData, { headers }).pipe(
       map(response => {
         console.log('Réponse de la requête', response);
         return response;
@@ -81,7 +78,7 @@ export class ProduitService {
     );
   }
 
-  updateProduit(produit: any): Observable<any> {
+  updateProduit(formData: FormData): Observable<any> {
     const token = localStorage.getItem('auth_token');
     
     let headers = new HttpHeaders();
@@ -89,10 +86,7 @@ export class ProduitService {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
   
-    const body = { id_produit : produit.id_produit, label : produit.label, prix : produit.prix, stock : produit.stock, id_categorie : produit.id_categorie};
-    console.log('Produit à mettre à jour', body);
-  
-    return this.http.put<any>(`${this.appUrl}/update`, body, { headers }).pipe(
+    return this.http.put<any>(`${this.appUrl}/update`, formData, { headers }).pipe(
       map(response => {
         console.log('Réponse de la requête', response);
         return response;

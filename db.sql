@@ -21,6 +21,7 @@ CREATE TABLE `token_invalide` (
 CREATE TABLE categorie (
     id_categorie INT(10) NOT NULL AUTO_INCREMENT,
     label VARCHAR(255) NOT NULL UNIQUE,
+    url VARCHAR(255) NOT NULL,
     PRIMARY KEY (id_categorie)
 );
 
@@ -32,6 +33,7 @@ CREATE TABLE produit (
     id_categorie INT(10) NOT NULL,
     date_creation DATE NOT NULL,
     date_modification DATE DEFAULT NULL,
+    url VARCHAR(255) NOT NULL,
     PRIMARY KEY (id_produit),
     CONSTRAINT fk_categorie FOREIGN KEY (id_categorie) REFERENCES categorie (id_categorie)
 );

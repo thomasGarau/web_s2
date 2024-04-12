@@ -17,8 +17,7 @@ import { FormsModule } from '@angular/forms';
 export class ProduitBackofficeComponent {
   produits: any[] = [];
   idCategorie : any;
-  nouveauProduit = { label: '', prix: 0, stock: 0, id_categorie : 0};
-  produitsBackup: any[] = [];
+  nouveauProduit: any = {};
 
 
 constructor(
@@ -42,9 +41,18 @@ ngOnInit(): void {
   }
 }
 
+onFileSelected(event: any, produit: any): void {
+  if (event.target.files.length > 0) {
+    const file = event.target.files[0];
+    produit.file = file;  
+  }
+}
+
+
 loadProduitsByCategorie(idCategorie: string): void {
   this.produitService.getProduitsParCategorie(idCategorie).subscribe({
     next: (produits: any[]) => {
+      produits.sort((a, b) => a.id_produit - b.id_produit);
       this.produits = produits;
     },
     error: (error: any) => {
@@ -53,48 +61,58 @@ loadProduitsByCategorie(idCategorie: string): void {
   });
 }
 
-ajouterProduit(): void {
-  this.nouveauProduit.id_categorie = this.idCategorie;
-  if(this.nouveauProduit.label && this.nouveauProduit.prix > 0 && this.nouveauProduit.stock > 0 && this.nouveauProduit.id_categorie > 0){
-    console.log("Ajout du produit en cours...", this.nouveauProduit)
-    this.produitService.addProduit(this.nouveauProduit).subscribe({
-      next: (produit) => {
-        this.produits.push(produit); // Ajoutez le nouveau produit à la liste affichée
-        this.nouveauProduit = { label: '', prix: 0, stock: 0, id_categorie: 0 }; // Réinitialisez le formulaire
-        console.log("Produit ajouté avec succès !");
-        this.loadProduitsByCategorie(this.idCategorie);
-      },
-      error: (error) => {
-        console.error('Erreur lors de l\'ajout du produit', error);
-      }
-    });
-  } else {
-    console.error("Veuillez remplir tous les champs correctement.");
+ajouterProduit(produit: any): void {
+  const formData = new FormData();
+  formData.append('label', produit.label);
+  formData.append('prix', produit.prix.toString());
+  formData.append('stock', produit.stock.toString());
+  formData.append('id_categorie', this.idCategorie); 
+  if (produit.file) {
+    formData.append('url', produit.file);
   }
 
-}
-
-modifierLeProduit(produit: any, index: number): void {
-  produit.enEdition = true;
-  this.produitsBackup[index] = { ...produit };
-  this.produits[index] = { ...produit };
-}
-
-sauvegarder(produit: any, index: number): void {
-  produit.enEdition = false;
-  this.produitService.updateProduit(produit).subscribe({
-    next: (produit: any) => {
-      console.log('Produit mis à jour avec succès', produit);
+  // Call your service method to add the product
+  this.produitService.addProduit(formData).subscribe({
+    next: (data: any) => {
+      console.log('Produit ajouté', data);
+      this.loadProduitsByCategorie(this.idCategorie);
     },
-    error: (error) => {
-      console.error('Erreur lors de la mise à jour du produit', error);
+    error: (error: any) => {
+      console.error('Erreur lors de l\'ajout du produit', error);
     }
   });
 }
 
-annulerEdition(produit: any, index: number): void {
-  produit.enEdition = false;
-  this.produits[index] = { ...this.produitsBackup[index] };
+
+
+modifierLeProduit(produit: any): void {
+  produit.enEdition = true;
+}
+
+sauvegarder(produit: any): void {
+  const formData = new FormData();
+  formData.append('label', produit.label);
+  formData.append('prix', produit.prix.toString());
+  formData.append('stock', produit.stock.toString());
+  formData.append('id_produit', produit.id_produit); // Assuming each product has a unique ID
+  if (produit.file) {
+    formData.append('url', produit.file);
+  }
+
+  // Call your service method to update the product
+  this.produitService.updateProduit(formData).subscribe({
+    next: (data: any) => {
+      console.log('Produit mis à jour', data);
+      this.loadProduitsByCategorie(this.idCategorie);
+    },
+    error: (error: any) => {
+      console.error('Erreur lors de la mise à jour du produit', error);
+    }
+  })
+}
+
+annulerEdition(produit: any): void {
+  this.loadProduitsByCategorie(this.idCategorie);
 }
 
 supprimerProduit(produit: any): void {

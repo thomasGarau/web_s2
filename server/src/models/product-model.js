@@ -39,6 +39,10 @@ Produit.init({
     date_modification: {
         type: DataTypes.DATE,
         allowNull: true
+    },
+    url: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 }, {
     sequelize,

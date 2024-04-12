@@ -1,0 +1,65 @@
+// Base pour le conteneur de tous les boutons
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5% 1%; 
+  position: absolute;
+  width: 98%;
+  top: 0;
+  left: 0;
+  z-index: 1; 
+  background-color: #f8f9fa;
+}
+
+// Styles de base pour tous les boutons
+.button-base {
+  margin: 0 5px; // Espacement entre les boutons
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  
+  outline: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.right-buttons {
+  display: flex;
+}
+
+.logout-button {
+    background-color: #e65c5c;
+    color: #fff;
+    &:hover {
+      background-color: darken(#e65c5c, 10%);
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  .home-button,
+  .panier-button,
+  .dashboard-button,
+  .user-button {
+    &:hover {
+      background-color: darken(#eb8291, 10%);
+      color: #fff;
+      cursor: pointer;
+    }
+    background-color: #eb8291;
+    color: #fff;
+  }
+
+
+// Styles pour les boutons du template loggedOut
+.logged-out-buttons {
+  .login-button,
+  .register-button {
+    &:hover {
+      background-color: darken(#6c757d, 10%);
+      color: #fff;
+    }
+    background-color: #6c757d;
+    color: #fff;
+  }
+}

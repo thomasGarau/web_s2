@@ -1,20 +1,36 @@
 <div class="dashboard">
   <h1>Dashboard Back Office</h1>
   <h2>Liste des Catégories</h2>
-  <ul>
-    <li *ngFor="let categorie of categories">
-      <!-- Vue d'édition -->
+  <div class="categories-container">
+    <div class="category-card">
+      <h3>Ajouter une nouvelle catégorie</h3>
+      <form (ngSubmit)="ajouterNouvelleCategorie(nouvelleCategorie)">
+        <div class="category-content">
+          <input type="text" [(ngModel)]="nouvelleCategorie.label" name="label" placeholder="Nom de la catégorie" required>
+          <input type="file" (change)="onFileSelected($event, nouvelleCategorie)" accept="image/*" required>
+          <button type="submit">Créer Catégorie</button>
+        </div>
+      </form>
+    </div>
+    <div *ngFor="let categorie of categories" class="category-card">
       <ng-container *ngIf="categorie.enEdition; else vueNormale">
-        <input type="text" [(ngModel)]="categorie.label"/>
-        <button (click)="sauvegarderCategorie(categorie)">Sauvegarder</button>
-        <button (click)="annulerEdition(categorie)">Annuler</button>
+        <form (ngSubmit)="sauvegarderCategorie(categorie)">
+          <div class="category-content">
+            <input type="text" [(ngModel)]="categorie.label" name="label">
+            <input type="file" (change)="onFileSelected($event, categorie)" accept="image/*">
+            <button type="submit">Sauvegarder</button>
+            <button type="button" (click)="annulerEdition(categorie)">Annuler</button>
+          </div>
+        </form>
       </ng-container>
-      <!-- Vue normale -->
       <ng-template #vueNormale>
-        <a [routerLink]="['/produit-backoffice', categorie.id_categorie, 'produits']">{{ categorie.label }}</a>
-        <button (click)="modifierCategorie(categorie)">Modifier</button>
-        <button (click)="supprimerCategorie(categorie)">Supprimer</button>
+        <div class="category-content">
+          <img *ngIf="categorie.url" [src]="categorie.url" alt="{{categorie.label}}">
+          <a [routerLink]="['/produit-backoffice', categorie.id_categorie, 'produits']">{{ categorie.label }}</a>
+          <button (click)="modifierCategorie(categorie)">Modifier</button>
+          <button (click)="supprimerCategorie(categorie)">Supprimer</button>
+        </div>
       </ng-template>
-    </li>
-  </ul>
+    </div>
+  </div>
 </div>

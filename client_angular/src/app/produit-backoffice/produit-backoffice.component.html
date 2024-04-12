@@ -1,42 +1,43 @@
 <div class="produits-liste">
-    <h2>Produits Back Office</h2>
-    <table *ngIf="produits.length > 0">
-      <thead>
-        <tr>
-          <th>Label</th>
-          <th>Prix</th>
-          <th>Quantité</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let produit of produits; let i = index">
-          <ng-container *ngIf="produit.enEdition; else vueNormale">
-            <td> <input type="text" [(ngModel)]="produit.label"/></td>
-            <td> <input type="number" [(ngModel)]="produit.prix"/></td>
-            <td> <input type="number" [(ngModel)]="produit.stock"/></td>
-            <td>
-              <button (click)="sauvegarder(produit, i)">Sauvegarder</button>
-              <button (click)="annulerEdition(produit, i)">Annuler</button>
-            </td>
-          </ng-container>
-          <ng-template #vueNormale>
-            <td>{{ produit.label }}</td>
-            <td>{{ produit.prix | currency }}</td>
-            <td>{{ produit.stock }}</td>
-            <td>
-              <button (click)="modifierLeProduit(produit, i)">Modifier</button>
-              <button (click)="supprimerProduit(produit)">Supprimer</button>
-            </td>
-          </ng-template>
-        </tr>
-        <tr>
-            <td> <input type="text" placeholder="Nom" [(ngModel)]="nouveauProduit.label"/></td>
-            <td> <input type="number" placeholder="Prix" [(ngModel)]="nouveauProduit.prix"/></td>
-            <td> <input type="number" placeholder="Quantité" [(ngModel)]="nouveauProduit.stock"/></td>
-            <td> <button (click)="ajouterProduit()">Ajouter</button> </td>
-        </tr>
-      </tbody>
-    </table>
-    <div *ngIf="produits.length === 0">Aucun produit trouvé</div>
+  <h2>Produits Back Office</h2>
+  <div class="produits-container">
+    <div class="category-card">
+      <!-- Form for adding a new product -->
+      <form (ngSubmit)="ajouterProduit(nouveauProduit)">
+        <div class="category-content">
+          <input type="text" [(ngModel)]="nouveauProduit.label" name="label" placeholder="Nom du produit" required>
+          <input type="number" [(ngModel)]="nouveauProduit.prix" name="prix" placeholder="Prix" required>
+          <input type="number" [(ngModel)]="nouveauProduit.stock" name="stock" placeholder="Quantité" required>
+          <input type="file" (change)="onFileSelected($event, nouveauProduit)" accept="image/*">
+          <button type="submit">Ajouter</button>
+        </div>
+      </form>
+    </div>
+    <div *ngFor="let produit of produits" class="category-card">
+      <!-- Form for editing an existing product -->
+      <ng-container *ngIf="produit.enEdition; else vueNormale">
+        <form (ngSubmit)="sauvegarder(produit)">
+          <div class="category-content">
+            <input type="text" [(ngModel)]="produit.label" name="label" placeholder="Nom du produit" required>
+            <input type="number" [(ngModel)]="produit.prix" name="prix" placeholder="Prix" required>
+            <input type="number" [(ngModel)]="produit.stock" name="stock" placeholder="Quantité" required>
+            <input type="file" (change)="onFileSelected($event, produit)" accept="image/*">
+            <button type="submit">Sauvegarder</button>
+            <button type="button" (click)="annulerEdition(produit)">Annuler</button>
+          </div>
+        </form>
+      </ng-container>
+      <ng-template #vueNormale>
+        <!-- Displaying the product information and image if available -->
+        <div class="category-content">
+          <img *ngIf="produit.url" [src]="produit.url" alt="{{produit.label}}">
+          <div>{{ produit.label }}</div>
+          <div>{{ produit.prix | currency }}</div>
+          <div>{{ produit.stock }}</div>
+          <button (click)="modifierLeProduit(produit)">Modifier</button>
+          <button (click)="supprimerProduit(produit)">Supprimer</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
 </div>

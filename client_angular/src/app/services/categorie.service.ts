@@ -29,28 +29,45 @@ export class CategorieService {
     );
   }
 
-  updateCategorie(categorie: any): Observable<any> {
+  saveCategorieWithImage(formData: FormData): Observable<any> {
     const token = localStorage.getItem('auth_token');
-    
     let headers = new HttpHeaders();
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
-
-    const body = {id : categorie.id_categorie ,label :categorie.label};
-
-    console.log('body', body);
-    return this.http.put<any>(`${this.appUrl}/update`, body, { headers }).pipe(
+    console.log('formData', formData);
+    // Utilisez POST ou PUT selon que vous créez ou mettez à jour une catégorie
+    return this.http.post<any>(`${this.appUrl}/add`, formData, { headers }).pipe(
       map(response => {
         return response;
       }),
       catchError(error => {
-        // Gestion des erreurs
+        console.error('Erreur lors de la sauvegarde de la catégorie', error);
+        throw error;
+      })
+    );
+  }
+
+  updateCategorie(formData: FormData): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    // Note: Ne définissez pas le 'Content-Type'. Laissez le navigateur le faire pour vous, ce qui est nécessaire pour `FormData`.
+    headers = headers.delete('Content-Type');
+  
+    return this.http.put<any>(`${this.appUrl}/update`, formData, { headers }).pipe(
+      map(response => {
+        console.log('Réponse de la requête', response);
+        return response;
+      }),
+      catchError(error => {
         console.error('Erreur lors de la mise à jour de la catégorie', error);
         throw error;
       })
     );
   }
+  
 
   deleteCategorie(id: number): Observable<any> {
     const token = localStorage.getItem('auth_token');

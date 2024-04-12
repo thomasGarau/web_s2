@@ -1,13 +1,18 @@
-<ng-container *ngIf="(authService.isLoggedIn() | async); else loggedOut">
-    <button (click)="logout()" routerLink="/home">Déconnexion</button>
-    <button *ngIf="!role()" routerLink="/categorie">Home</button>
-    <button *ngIf="!role()" routerLink="/panier">Panier</button>
-    <button *ngIf="role()" routerLink="/dashboard">Dashboard</button>
-    <button *ngIf="role()" routerLink="/user">Utilisateur</button>
+<div class="buttons-container">
+  <ng-container *ngIf="(authService.isLoggedIn() | async); else loggedOut">
+    
+    <div class="right-buttons">
+      <button class="button-base home-button" *ngIf="!role()" routerLink="/categorie">Home</button>
+      <button class="button-base panier-button" *ngIf="!role()" routerLink="/panier">Panier</button>
+      <button class="button-base dashboard-button" *ngIf="role()" routerLink="/dashboard">Dashboard</button>
+      <button class="button-base user-button" *ngIf="role()" routerLink="/user">Utilisateur</button>
+    </div>
+    <button class="button-base logout-button" (click)="logout()" routerLink="/home">Déconnexion</button>
   </ng-container>
   <ng-template #loggedOut>
-    <button *ngIf="showButton('login')" routerLink="/login">Login</button>
-    <button *ngIf="showButton('register')" routerLink="/register">Register</button>
-    
+    <div class="logged-out-buttons">
+      <button class="button-base login-button" *ngIf="showButton('login')" routerLink="/login">Login</button>
+      <button class="button-base register-button" *ngIf="showButton('register')" routerLink="/register">Register</button>
+    </div>
   </ng-template>
-  
+</div>

@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class DashboardComponent {
   categories: any[] = [];
-  categoriesBackup: any[] = [];
+  nouvelleCategorie: any = {};
 
   constructor(private categorieService: CategorieService, private authService: AuthService, private router: Router) {
   }
@@ -40,27 +40,57 @@ export class DashboardComponent {
     });
   }
 
+  onFileSelected(event: any, categorie: any): void {
+    categorie.file = event.target.files[0];
+  }
+
+  ajouterNouvelleCategorie(categorie: any): void {
+    const formData = new FormData();
+    formData.append('label', categorie.label);
+    if (categorie.file) {
+      formData.append('url', categorie.file);
+    }
+
+    this.categorieService.saveCategorieWithImage(formData).subscribe({
+      next: (data) => {
+        console.log('Nouvelle catégorie ajoutée avec succès', data);
+        this.categories.push(data); 
+        this.nouvelleCategorie = {}; // Réinitialisez pour la prochaine utilisation
+      },
+      error: (error) => {
+        console.error('Erreur lors de l\'ajout de la nouvelle catégorie', error);
+      }
+    });
+  }
+
   modifierCategorie(categorie: any): void {
     categorie.enEdition = true;
-    this.categoriesBackup[categorie.id_categorie] = { ...categorie }; 
   }
   
   sauvegarderCategorie(categorie: any): void {
-    categorie.enEdition = false;
-    this.categorieService.updateCategorie(categorie).subscribe({
+    const formData = new FormData();
+    formData.append('label', categorie.label);
+    formData.append('id_categorie', categorie.id_categorie);
+  
+    if (categorie.file) {
+      formData.append('url', categorie.file);
+    }
+  
+    this.categorieService.updateCategorie(formData).subscribe({
       next: (data: any) => {
         console.log('Catégorie mise à jour', data);
         this.loadCategories();
+        categorie.enEdition = false;  // Déplacer ici pour assurer la cohérence en cas de succès de la requête
       },
       error: (error: any) => {
         console.error('Erreur lors de la mise à jour de la catégorie', error);
+        categorie.enEdition = true;  // Permettre à l'utilisateur de réessayer
       }
     });
   }
   
+  
   annulerEdition(categorie: any): void {
-    this.categories[categorie.id_categorie] = { ...this.categoriesBackup[categorie.id_categorie] };
-    categorie.enEdition = false;
     this.loadCategories();
   }
 

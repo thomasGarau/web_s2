@@ -20,9 +20,9 @@ async function getAllCategorie() {
     }
 }
 
-async function addCategorie(label) {
+async function addCategorie(label, url) {
     try {
-        const data = await categorie.create({ label: label});
+        const data = await categorie.create({ label: label, url : url});
     }
     catch (err) {
         throw new Error(err,'Erreur lors de l\'ajout des catégories');

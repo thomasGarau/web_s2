@@ -13,6 +13,10 @@ Categorie.init({
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
+    },
+    url :{
+        type: DataTypes.STRING,
+        allowNull: true
     }
 }, {
     sequelize,
