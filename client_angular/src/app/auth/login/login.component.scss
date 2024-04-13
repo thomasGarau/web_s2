@@ -17,37 +17,39 @@ $secondary-color: #e65c5c;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f4f4f4; // Maintains a background color if needed
-    background-image: url('fond_legume.png'); // Ensure this is the correct path to your image
-    background-size: contain; // Use 'contain' to fit the image in the dimension it needs to repeat properly
-    background-repeat: repeat-x; // Repeats the background image horizontally
+    background-color: #f4f4f4;
+    background-image: url('fond_legume.png');
+    background-size: contain;
+    background-repeat: repeat;
     animation: slideBackground 10000000000000000s linear infinite;
   
-  
     form {
-      padding: 2rem;
+      padding: 3rem; // Augmentation du padding pour plus d'espace interne
       background: white;
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      width: 100%;
-      max-width: 400px;
-
+      width: 80%; // Augmentation de la largeur
+      max-width: 600px; // Nouvelle largeur maximale plus grande
+      max-height: auto; // Assurez-vous que la hauteur s'adapte au contenu
+      margin: 20px; // Ajoute un peu d'espace autour du formulaire pour éviter qu'il touche d'autres éléments
+  
       &:hover {
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
       }
   
       div {
-        margin-bottom: 1rem;
+        margin-bottom: 2rem; // Plus d'espace entre les champs
   
         label {
           display: block;
-          margin-bottom: 0.5rem;
+          margin-bottom: 1rem; // Augmente l'espace sous le label
           color: #333;
+          font-size: 1.2rem; // Augmente la taille du texte du label
         }
   
         input {
-          width: 90%;
-          padding: 0.8rem;
+          width: 95%; // Utilise toute la largeur du bloc parent
+          padding: 1rem; // Plus de padding pour un meilleur confort visuel
           border: 1px solid #ccc;
           border-radius: 4px;
           &:focus {
@@ -58,7 +60,7 @@ $secondary-color: #e65c5c;
   
         .error {
           color: #d9534f;
-          font-size: 0.85rem;
+          font-size: 0.95rem; // Légère augmentation de la taille pour mieux voir les erreurs
           visibility: hidden;
           &.visible {
             visibility: visible;

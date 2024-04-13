@@ -1,26 +1,35 @@
 <div class="buttons-container">
   <ng-container *ngIf="(authService.isLoggedIn() | async); else loggedOut">
-    <div class="left-buttons">
-      <button class="button-base panier-button" *ngIf="!role()" routerLink="/panier">Panier</button>
-      <button class="button-base dashboard-button" routerLink="/dashboard">Home</button>
-      <button class="button-base user-button" *ngIf="role()" routerLink="/user">Utilisateur</button>
+    <!-- Logo à gauche -->
+    <div class="logo-container">
+      <img src="../../assets/img/SupermarcheLogo2.png" alt="logo" class="logo" />
     </div>
-    <div class="titre">
-      <h1>Projet E-commerce</h1>
-    </div>
-    <div class="right-buttons">
-      <button class="button-base logout-button" (click)="logout()" routerLink="/home">Déconnexion</button>
+    
+    <!-- Tous les boutons à droite -->
+    <div class="all-buttons">
+      <div class="left-buttons">
+        <button class="button-base panier-button" *ngIf="!role()" routerLink="/panier" routerLinkActive="active">Panier</button>
+        <button class="button-base dashboard-button" routerLink="/dashboard" routerLinkActive="active">Home</button>
+        <button class="button-base user-button" *ngIf="role()" routerLink="/user" routerLinkActive="active">Utilisateur</button>
+      </div>
+      
+      <div class="right-buttons">
+        <button class="button-base logout-button" (click)="logout()" routerLink="/home" routerLinkActive="active">Déconnexion</button>
+      </div>
     </div>
   </ng-container>
 
   <ng-template #loggedOut>
-    <div class="left-buttons">
-      <button class="button-base login-button" *ngIf="showButton('login')" routerLink="/login">Login</button>
-      <button class="button-base register-button" *ngIf="showButton('register')" routerLink="/register">Register</button>
+    <!-- Même structure pour loggedOut -->
+    <div class="logo-container">
+      <img src="../../assets/img/SupermarcheLogo2.png" alt="logo" class="logo" />
     </div>
-    <div class="titre">
-      <h1>Projet E-commerce</h1>
+    <div class="all-buttons">
+      <div class="left-buttons">
+        <button class="button-base login-button" *ngIf="showButton('login')" routerLink="/login" routerLinkActive="active">Login</button>
+        <button class="button-base register-button" *ngIf="showButton('register')" routerLink="/register" routerLinkActive="active">Register</button>
+      </div>
+      <div class="right-buttons"><!-- Empty div for symmetry --></div>
     </div>
-    <div class="right-buttons"><!-- Empty div for symmetry --></div>
   </ng-template>
 </div>

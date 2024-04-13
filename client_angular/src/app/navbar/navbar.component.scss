@@ -1,38 +1,47 @@
-$primary-color: #eb8291; // Bleu
+$primary-color: #eb8291; 
 $secondary-color: #e65c5c;
 
 .buttons-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0.5% 1%; 
+  align-items: flex-end;
+  padding-top : 0.5%;
+  padding-bottom : 1.5%;
+  padding-left: 1%;
+  padding-right: 1%;
   position: fixed;
   width: 98%;  
   top: 0;
   left: 0;
   z-index: 1;
-  background-color: #f8f9fa;
+  background-color: #FFF1F1;
+  opacity: 0.9;
+}
+
+.logo-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  
+
+  img {
+    height: 150px;
+  }
+}
+
+.all-buttons {
+  display: flex;
+  flex: 3;
+  justify-content: flex-end;
 }
 
 .left-buttons, .right-buttons {
   display: flex;
-  flex: 1; // Donne la même flexibilité pour les deux côtés
 }
 
-
-.right-buttons {
-  justify-content: flex-end;
-}
-
-
-
-.titre {
-  display: flex;
-  justify-content: center;
-  flex: 2; // Donne plus de flexibilité pour centrer le titre
-  h1 {
-    margin: 0;
-  }
+.active {
+  background-color: darken( $primary-color, 10%);
+  color: white;
 }
 
 .button-base {
