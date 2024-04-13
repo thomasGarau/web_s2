@@ -3,53 +3,47 @@
     <div>
       <label for="email">Email :</label>
       <input type="email" formControlName="email" id="email">
-      <div *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched">
-        L'email est requis.
-      </div>
-      <div *ngIf="registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.touched">
-        Veuillez entrer une adresse email valide.
+      <div *ngIf="registerForm.get('email')?.errors && registerForm.get('email')?.touched">
+        {{ getErrorMessage('email') }}
       </div>
     </div>
 
     <div>
       <label for="name">Nom :</label>
       <input type="text" formControlName="name" id="name">
-      <div *ngIf="registerForm.get('name')?.errors?.['required'] && registerForm.get('name')?.touched">
-        Le nom est requis.
+      <div *ngIf="registerForm.get('name')?.errors && registerForm.get('name')?.touched">
+        {{ getErrorMessage('name') }}
       </div>
     </div>
 
     <div>
       <label for="firstName">Prénom :</label>
       <input type="text" formControlName="firstName" id="firstName">
-      <div *ngIf="registerForm.get('firstName')?.errors?.['required'] && registerForm.get('firstName')?.touched">
-        Le prénom est requis.
+      <div *ngIf="registerForm.get('firstName')?.errors && registerForm.get('firstName')?.touched">
+        {{ getErrorMessage('firstName') }}
       </div>
     </div>
 
     <div>
       <label for="password">Mot de passe :</label>
       <input type="password" formControlName="password" id="password">
-      <div *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched">
-        Le mot de passe est requis.
-      </div>
-      <div *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.touched">
-        Le mot de passe doit comporter au moins 6 caractères.
+      <div *ngIf="registerForm.get('password')?.errors && registerForm.get('password')?.touched">
+        {{ getErrorMessage('password') }}
       </div>
     </div>
 
     <div>
       <label for="confirmPassword">Confirmez le mot de passe :</label>
       <input type="password" formControlName="confirmPassword" id="confirmPassword">
-      <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched">
-        Les mots de passe ne correspondent pas.
+      <div *ngIf="registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword')?.touched">
+        {{ getErrorMessage('confirmPassword') }}
       </div>
     </div>
 
     <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
-
     <div *ngIf="error" class="error">
       {{ error }}
+
     </div>
   </form>
 </div>

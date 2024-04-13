@@ -1,23 +1,42 @@
 $primary-color: #eb8291; // Bleu
 $secondary-color: #e65c5c;
 
-
 .buttons-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.5% 1%; 
   position: fixed;
-  width: 98%;
+  width: 98%;  
   top: 0;
   left: 0;
-  z-index: 1; 
+  z-index: 1;
   background-color: #f8f9fa;
 }
 
-// Styles de base pour tous les boutons
+.left-buttons, .right-buttons {
+  display: flex;
+  flex: 1; // Donne la même flexibilité pour les deux côtés
+}
+
+
+.right-buttons {
+  justify-content: flex-end;
+}
+
+
+
+.titre {
+  display: flex;
+  justify-content: center;
+  flex: 2; // Donne plus de flexibilité pour centrer le titre
+  h1 {
+    margin: 0;
+  }
+}
+
 .button-base {
-  margin: 0 5px; // Espacement entre les boutons
+  margin: 0 5px;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -25,44 +44,18 @@ $secondary-color: #e65c5c;
   
   outline: none;
   transition: background-color 0.3s, color 0.3s;
-}
+  background-color: $primary-color;
+  color: #fff;
 
-.right-buttons {
-  display: flex;
+  &:hover {
+    background-color: darken($primary-color, 10%);
+    cursor: pointer;
+  }
 }
 
 .logout-button {
-    background-color: $secondary-color;
-    color: #fff;
-    &:hover {
-      background-color: darken($secondary-color, 10%);
-      color: #fff;
-      cursor: pointer;
-    }
-  }
-  .home-button,
-  .panier-button,
-  .dashboard-button,
-  .user-button {
-    &:hover {
-      background-color: darken($primary-color, 10%);
-      color: #fff;
-      cursor: pointer;
-    }
-    background-color: $primary-color;
-    color: #fff;
-  }
-
-
-// Styles pour les boutons du template loggedOut
-.logged-out-buttons {
-  .login-button,
-  .register-button {
-    &:hover {
-      background-color: darken($primary-color, 10%);
-      color: #fff;
-    }
-    background-color: $primary-color;
-    color: #fff;
+  background-color: $secondary-color;
+  &:hover {
+    background-color: darken($secondary-color, 10%);
   }
 }

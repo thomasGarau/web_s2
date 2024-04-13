@@ -1,17 +1,26 @@
 <div class="buttons-container">
   <ng-container *ngIf="(authService.isLoggedIn() | async); else loggedOut">
-    
-    <div class="right-buttons">
+    <div class="left-buttons">
       <button class="button-base panier-button" *ngIf="!role()" routerLink="/panier">Panier</button>
       <button class="button-base dashboard-button" routerLink="/dashboard">Home</button>
       <button class="button-base user-button" *ngIf="role()" routerLink="/user">Utilisateur</button>
     </div>
-    <button class="button-base logout-button" (click)="logout()" routerLink="/home">Déconnexion</button>
+    <div class="titre">
+      <h1>Projet E-commerce</h1>
+    </div>
+    <div class="right-buttons">
+      <button class="button-base logout-button" (click)="logout()" routerLink="/home">Déconnexion</button>
+    </div>
   </ng-container>
+
   <ng-template #loggedOut>
-    <div class="logged-out-buttons">
+    <div class="left-buttons">
       <button class="button-base login-button" *ngIf="showButton('login')" routerLink="/login">Login</button>
       <button class="button-base register-button" *ngIf="showButton('register')" routerLink="/register">Register</button>
     </div>
+    <div class="titre">
+      <h1>Projet E-commerce</h1>
+    </div>
+    <div class="right-buttons"><!-- Empty div for symmetry --></div>
   </ng-template>
 </div>
