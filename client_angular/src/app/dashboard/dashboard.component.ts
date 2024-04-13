@@ -20,12 +20,7 @@ export class DashboardComponent {
   constructor(private categorieService: CategorieService, private authService: AuthService, private router: Router) {
   }
   ngOnInit(): void {
-    if (!this.authService.isAdmin()){
-      this.router.navigate(['/categorie']);
-    }
-    else {
-      this.loadCategories();
-    }
+    this.loadCategories();
   }
 
   loadCategories(): void {
@@ -104,6 +99,10 @@ export class DashboardComponent {
         console.error('Erreur lors de la suppression de la catégorie', error);
       }
     });
+  }
+
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
   }
 
 }

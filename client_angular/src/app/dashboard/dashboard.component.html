@@ -1,4 +1,4 @@
-<div class="dashboard">
+<div *ngIf="isAdmin()" class="dashboard">
   <h1>Dashboard Back Office</h1>
   <h2>Liste des Catégories</h2>
   <div class="categories-container">
@@ -31,6 +31,19 @@
           <button (click)="supprimerCategorie(categorie)">Supprimer</button>
         </div>
       </ng-template>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isAdmin()" class="dashboard">
+  <h1>Dashboard Front Office</h1>
+  <h2>Liste des Catégories</h2>
+  <div class="categories-container">
+    <div *ngFor="let categorie of categories" class="category-card">
+      <div class="category-content">
+        <img *ngIf="categorie.url" [src]="categorie.url" alt="{{categorie.label}}">
+        <a [routerLink]="['/categories', categorie.id_categorie, 'produits']">{{ categorie.label }}</a>
+      </div>
     </div>
   </div>
 </div>

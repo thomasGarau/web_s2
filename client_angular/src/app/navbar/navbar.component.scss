@@ -1,10 +1,13 @@
-// Base pour le conteneur de tous les boutons
+$primary-color: #eb8291; // Bleu
+$secondary-color: #e65c5c;
+
+
 .buttons-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.5% 1%; 
-  position: absolute;
+  position: fixed;
   width: 98%;
   top: 0;
   left: 0;
@@ -29,10 +32,10 @@
 }
 
 .logout-button {
-    background-color: #e65c5c;
+    background-color: $secondary-color;
     color: #fff;
     &:hover {
-      background-color: darken(#e65c5c, 10%);
+      background-color: darken($secondary-color, 10%);
       color: #fff;
       cursor: pointer;
     }
@@ -42,11 +45,11 @@
   .dashboard-button,
   .user-button {
     &:hover {
-      background-color: darken(#eb8291, 10%);
+      background-color: darken($primary-color, 10%);
       color: #fff;
       cursor: pointer;
     }
-    background-color: #eb8291;
+    background-color: $primary-color;
     color: #fff;
   }
 
@@ -56,10 +59,10 @@
   .login-button,
   .register-button {
     &:hover {
-      background-color: darken(#6c757d, 10%);
+      background-color: darken($primary-color, 10%);
       color: #fff;
     }
-    background-color: #6c757d;
+    background-color: $primary-color;
     color: #fff;
   }
 }
