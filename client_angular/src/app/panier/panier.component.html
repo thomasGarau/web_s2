@@ -1,35 +1,20 @@
 <div class="panier-list">
-    <table>
-        <thead>
-            <tr>
-                <th>Label</th>
-                <th>Prix</th>
-                <th>Quantité</th>
-                <th>Action</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let produit of produits">
-                <td>{{ label[produit.id_produit] }}</td>
-                <td>{{ prix[produit.id_produit] }}</td>
-                <td>{{ quantites[produit.id_produit] }}</td>
-                
-                <td>
-                    <button (click)="ajouterAuPanier(produit)">+</button>
-                    <button (click)="enleverDuPanier(produit)" [hidden]="!quantites[produit.id_produit] || quantites[produit.id_produit] <= 0">-</button>
-                </td>
-                <td>{{ quantites[produit.id_produit] * prix[produit.id_produit] }}</td>
-            </tr>
-            <tr>
-                <td colspan="4">Total</td>
-                <td>{{ total }}</td>
-            </tr>
-            <tr>
-                <td colspan="5">
-                    <button (click)="viderPanier()">Vider le panier</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <h2>Panier</h2>
+    <div class="panier-container">
+        <div *ngFor="let produit of produits" class="category-card">
+            <div class="category-content">
+                <img *ngIf="url[produit.id_produit]" [src]="url[produit.id_produit]" alt="{{label[produit.id_produit]}}">
+                <div>{{ label[produit.id_produit] }}</div>
+                <div>{{ prix[produit.id_produit] | currency }}</div>
+                <div>{{ quantites[produit.id_produit] }} <button (click)="enleverDuPanier(produit)">-</button>  </div>
+                <button (click)="enleverDuPanierProduit(produit)">Enlever du panier</button>
+            </div>
+        </div>
+    </div>
+    <div class="total">
+        <div>Nombre de produits: {{ produits.length }}</div>
+        <div>Total: {{ total | currency }}</div>
+        <div></div>
+        <button (click)="viderPanier()">Vider le panier</button>
+    </div>
 </div>

@@ -18,6 +18,7 @@ export class PanierComponent implements OnInit {
   quantites: { [id_produit: string]: number } = {};
   label : { [id_produit: string]: string } = {};
   prix : { [id_produit: string]: number } = {};
+  url : { [id_produit: string]: string } = {};
   total : number = 0;
 
   constructor(private panierService: PanierService, private produitService: ProduitService ) {}
@@ -69,11 +70,18 @@ export class PanierComponent implements OnInit {
     this.calculerTotal();
   }
 
+  enleverDuPanierProduit(produit: any): void {
+    this.produits = this.produits.filter(p => p.id_produit !== produit.id_produit);
+    this.panierService.enleverDuPanier(produit);
+    this.calculerTotal();
+  }
+
   getProduit(produit : any): any {
     this.produitService.getProduit(produit.id_produit).subscribe(
       (data) => {
         this.label[produit.id_produit] = data.label;
         this.prix[produit.id_produit] = data.prix;
+        this.url[produit.id_produit] = data.url;
         this.calculerTotal();
       }
     );
@@ -86,6 +94,7 @@ export class PanierComponent implements OnInit {
         this.total += this.prix[produit.id_produit] * this.quantites[produit.id_produit];
       }
     });
+    this.chargerPanier();
   }
 
   viderPanier(): void {

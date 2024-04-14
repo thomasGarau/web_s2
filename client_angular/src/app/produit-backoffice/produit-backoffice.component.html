@@ -1,4 +1,4 @@
-<div class="produits-liste">
+<div *ngIf="isAdmin()" class="produits-liste">
   <h2>Produits Back Office</h2>
   <div class="produits-container">
     <div class="category-card">
@@ -18,6 +18,10 @@
       <ng-container *ngIf="produit.enEdition; else vueNormale">
         <form (ngSubmit)="sauvegarder(produit)">
           <div class="category-content">
+            <div *ngIf="loading" class="loading-overlay">
+              <div class="spinner"></div>
+            </div>
+
             <input type="text" [(ngModel)]="produit.label" name="label" placeholder="Nom du produit" required>
             <input type="number" [(ngModel)]="produit.prix" name="prix" placeholder="Prix" required>
             <input type="number" [(ngModel)]="produit.stock" name="stock" placeholder="Quantité" required>
@@ -38,6 +42,23 @@
           <button (click)="supprimerProduit(produit)">Supprimer</button>
         </div>
       </ng-template>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isAdmin()" class="produits-liste">
+  <h2>Produits Front Office</h2>
+  <div class="produits-container">
+    <div *ngFor="let produit of produits" class="category-card">
+      <div class="category-content">
+        <img *ngIf="produit.url" [src]="produit.url" alt="{{produit.label}}">
+        <div>{{ produit.label }}</div>
+        <div>{{ produit.prix | currency }}</div>
+        <div>{{ produit.stock }}</div>
+        <button (click)="ajouterAuPanier(produit)">+</button>
+        <div class="quantite_produit_panier" *ngIf="quantites[produit.id_produit] && quantites[produit.id_produit] > 0">{{ quantites[produit.id_produit] }}</div>
+        <button (click)="enleverDuPanier(produit)" [hidden]="!quantites[produit.id_produit] || quantites[produit.id_produit] <= 0">-</button>
+      </div>
     </div>
   </div>
 </div>

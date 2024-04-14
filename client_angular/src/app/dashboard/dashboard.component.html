@@ -42,7 +42,7 @@
     <div *ngFor="let categorie of categories" class="category-card">
       <div class="category-content">
         <img *ngIf="categorie.url" [src]="categorie.url" alt="{{categorie.label}}">
-        <a [routerLink]="['/categories', categorie.id_categorie, 'produits']">{{ categorie.label }}</a>
+        <a [routerLink]="['/produit-backoffice', categorie.id_categorie, 'produits']">{{ categorie.label }}</a>
       </div>
     </div>
   </div>

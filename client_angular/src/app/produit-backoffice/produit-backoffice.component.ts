@@ -16,8 +16,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class ProduitBackofficeComponent {
   produits: any[] = [];
+  quantites: { [id_produit: string]: number } = {};
   idCategorie : any;
   nouveauProduit: any = {};
+  loading : boolean = false;
 
 
 constructor(
@@ -29,16 +31,16 @@ constructor(
 
 
 ngOnInit(): void {
-  if (!this.authService.isAdmin()) {
-    this.router.navigate(['/categorie']);
-  } else {
     this.route.paramMap.subscribe(params => {
       this.idCategorie = params.get('id'); // Assurez-vous que 'idCategorie' correspond au nom du paramètre défini dans vos routes
       if (this.idCategorie) {
         this.loadProduitsByCategorie(this.idCategorie);
       }
     });
-  }
+}
+
+isAdmin(): boolean {
+  return this.authService.isAdmin();
 }
 
 onFileSelected(event: any, produit: any): void {
@@ -54,6 +56,10 @@ loadProduitsByCategorie(idCategorie: string): void {
     next: (produits: any[]) => {
       produits.sort((a, b) => a.id_produit - b.id_produit);
       this.produits = produits;
+      this.produits.forEach(produit => {
+        this.QuantiteProduitPanier(produit);
+        console.log(produit);
+      });
     },
     error: (error: any) => {
       console.error('Erreur lors de la récupération des produits', error);
@@ -61,27 +67,70 @@ loadProduitsByCategorie(idCategorie: string): void {
   });
 }
 
+QuantiteProduitPanier(produit: any): void {
+  this.panierService.avoirProduitPanier(produit.id_produit).subscribe(
+    (data) => {
+      if (data && data.quantite !== undefined) {
+        this.quantites[produit.id_produit] = data.quantite;
+      } else {
+        // Si data est null ou ne contient pas 'quantite', définissez la quantité à 0 ou gérez comme approprié
+        this.quantites[produit.id_produit] = 0;
+      }
+    },
+    (error) => {
+      console.error('Erreur lors de la récupération des quantités du panier', error);
+    }
+  );
+}
+
 ajouterProduit(produit: any): void {
+  this.loading = true; // Start loading
   const formData = new FormData();
   formData.append('label', produit.label);
   formData.append('prix', produit.prix.toString());
   formData.append('stock', produit.stock.toString());
-  formData.append('id_categorie', this.idCategorie); 
+  formData.append('id_categorie', this.idCategorie);
   if (produit.file) {
-    formData.append('url', produit.file);
+    formData.append('url', produit.file, produit.file.name);
   }
 
-  // Call your service method to add the product
   this.produitService.addProduit(formData).subscribe({
     next: (data: any) => {
       console.log('Produit ajouté', data);
       this.loadProduitsByCategorie(this.idCategorie);
+      this.loading = false; // Stop loading
     },
     error: (error: any) => {
       console.error('Erreur lors de l\'ajout du produit', error);
+      this.loading = false; // Stop loading
     }
   });
 }
+
+sauvegarder(produit: any): void {
+  this.loading = true; // Start loading
+  const formData = new FormData();
+  formData.append('label', produit.label);
+  formData.append('prix', produit.prix.toString());
+  formData.append('stock', produit.stock.toString());
+  formData.append('id_produit', produit.id_produit);
+  if (produit.file) {
+    formData.append('url', produit.file, produit.file.name);
+  }
+
+  this.produitService.updateProduit(formData).subscribe({
+    next: (data: any) => {
+      console.log('Produit mis à jour', data);
+      this.loadProduitsByCategorie(this.idCategorie);
+      this.loading = false; // Stop loading
+    },
+    error: (error: any) => {
+      console.error('Erreur lors de la mise à jour du produit', error);
+      this.loading = false; // Stop loading
+    }
+  })
+}
+
 
 
 
@@ -89,27 +138,6 @@ modifierLeProduit(produit: any): void {
   produit.enEdition = true;
 }
 
-sauvegarder(produit: any): void {
-  const formData = new FormData();
-  formData.append('label', produit.label);
-  formData.append('prix', produit.prix.toString());
-  formData.append('stock', produit.stock.toString());
-  formData.append('id_produit', produit.id_produit); // Assuming each product has a unique ID
-  if (produit.file) {
-    formData.append('url', produit.file);
-  }
-
-  // Call your service method to update the product
-  this.produitService.updateProduit(formData).subscribe({
-    next: (data: any) => {
-      console.log('Produit mis à jour', data);
-      this.loadProduitsByCategorie(this.idCategorie);
-    },
-    error: (error: any) => {
-      console.error('Erreur lors de la mise à jour du produit', error);
-    }
-  })
-}
 
 annulerEdition(produit: any): void {
   this.loadProduitsByCategorie(this.idCategorie);
@@ -125,6 +153,23 @@ supprimerProduit(produit: any): void {
       console.error('Erreur lors de la suppression du produit', error);
     }
   });
+}
+
+ajouterAuPanier(produit: any): void {
+  if (!this.quantites[produit.id_produit]) {
+    this.quantites[produit.id_produit] = 0;
+  }
+  this.quantites[produit.id_produit]++;
+
+  this.panierService.ajouterAuPanier(produit);
+}
+
+enleverDuPanier(produit: any): void {
+  if (this.quantites[produit.id_produit] && this.quantites[produit.id_produit] > 0) {
+    this.quantites[produit.id_produit]--;
+  }
+
+  this.panierService.enleverDuPanier(produit);
 }
 
 
