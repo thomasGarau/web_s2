@@ -6,6 +6,9 @@
       <h3>Ajouter une nouvelle catégorie</h3>
       <form (ngSubmit)="ajouterNouvelleCategorie(nouvelleCategorie)">
         <div class="category-content">
+          <div *ngIf="loading" class="loading-overlay">
+            <div class="spinner"></div>
+          </div>
           <input type="text" [(ngModel)]="nouvelleCategorie.label" name="label" placeholder="Nom de la catégorie" required>
           <input type="file" (change)="onFileSelected($event, nouvelleCategorie)" accept="image/*" required>
           <button type="submit">Créer Catégorie</button>
@@ -15,6 +18,9 @@
     <div *ngFor="let categorie of categories" class="category-card">
       <ng-container *ngIf="categorie.enEdition; else vueNormale">
         <form (ngSubmit)="sauvegarderCategorie(categorie)">
+          <div *ngIf="loading" class="loading-overlay">
+            <div class="spinner"></div>
+          </div>
           <div class="category-content">
             <input type="text" [(ngModel)]="categorie.label" name="label">
             <input type="file" (change)="onFileSelected($event, categorie)" accept="image/*">

@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 export class DashboardComponent {
   categories: any[] = [];
   nouvelleCategorie: any = {};
+  loading :boolean = false;
 
   constructor(private categorieService: CategorieService, private authService: AuthService, private router: Router) {
   }
@@ -40,6 +41,7 @@ export class DashboardComponent {
   }
 
   ajouterNouvelleCategorie(categorie: any): void {
+    this.loading = true;
     const formData = new FormData();
     formData.append('label', categorie.label);
     if (categorie.file) {
@@ -50,7 +52,8 @@ export class DashboardComponent {
       next: (data) => {
         console.log('Nouvelle catégorie ajoutée avec succès', data);
         this.categories.push(data); 
-        this.nouvelleCategorie = {}; // Réinitialisez pour la prochaine utilisation
+        this.nouvelleCategorie = {}; 
+        this.loading = false;
       },
       error: (error) => {
         console.error('Erreur lors de l\'ajout de la nouvelle catégorie', error);
@@ -63,6 +66,7 @@ export class DashboardComponent {
   }
   
   sauvegarderCategorie(categorie: any): void {
+    this.loading = true;
     const formData = new FormData();
     formData.append('label', categorie.label);
     formData.append('id_categorie', categorie.id_categorie);
@@ -75,6 +79,7 @@ export class DashboardComponent {
       next: (data: any) => {
         console.log('Catégorie mise à jour', data);
         this.loadCategories();
+        this.loading = false;
         categorie.enEdition = false;  // Déplacer ici pour assurer la cohérence en cas de succès de la requête
       },
       error: (error: any) => {

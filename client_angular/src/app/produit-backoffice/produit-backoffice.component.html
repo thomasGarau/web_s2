@@ -2,6 +2,9 @@
   <h2>Produits Back Office</h2>
   <div class="produits-container">
     <div class="category-card">
+      <div *ngIf="loading" class="loading-overlay">
+        <div class="spinner"></div>
+      </div>
       <!-- Form for adding a new product -->
       <form (ngSubmit)="ajouterProduit(nouveauProduit)">
         <div class="category-content">
