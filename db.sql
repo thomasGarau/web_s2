@@ -47,3 +47,15 @@ CREATE TABLE produit_panier (
     CONSTRAINT fk_utilisateur_panier FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id_utilisateur),
     PRIMARY KEY (id_utilisateur, id_produit)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+DELIMITER $$
+
+CREATE TRIGGER update_produit_date_modification
+BEFORE UPDATE ON produit
+FOR EACH ROW
+BEGIN
+    SET NEW.date_modification = CURDATE();
+END$$
+
+DELIMITER ;

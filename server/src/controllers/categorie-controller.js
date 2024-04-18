@@ -2,9 +2,9 @@ const categorieService = require('../services/categorie-service');
 
 exports.getCategorie = ( async (req,res) => {
     try {
-        const label = req.body.label;
-        const categorie = await categorieService.getCategorie(label);
-        res.status(200).send(categorie);
+        const id_categorie = req.body.id_categorie;
+        const categorie = await categorieService.getCategorie(id_categorie);
+        res.status(200).json(categorie);
     }
     catch (err) {
         res.status(500).send('Erreur lors de la récupération des catégories');

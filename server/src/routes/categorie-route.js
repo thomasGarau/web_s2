@@ -10,7 +10,7 @@ const { verifyTokenBlacklist, verifyAuthorisation } = require('../middlewares/ve
 const parser = multer({ storage: storage });
 
 
-router.post('/categorie', validateField('label'), getCategorie);
+router.post('/get', validateField('id_categorie'), getCategorie);
 router.get('/all',getAllCategorie);
 router.delete('/delete',[verifyAuthorisation, verifyTokenBlacklist, validateField('id_categorie')],  deleteCategorie);
 router.put('/update', [verifyAuthorisation, verifyTokenBlacklist, validateField()],  uploadImage, async (req, res) => {

@@ -1,9 +1,9 @@
 const categorie = require('../models/categorie-model');
 const produitService = require('./product-service');
 
-async function getCategorie(label) {
+async function getCategorie(id_categorie) {
     try {
-        return await categorie.findOne({ where : { label: label }});
+        return await categorie.findOne({ where : { id_categorie: id_categorie }});
     }
     catch (err) {
         throw new Error(err, 'Erreur lors de la récupération des catégories');
