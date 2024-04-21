@@ -37,8 +37,9 @@ Panier.init({
     timestamps: false, 
 });
 
+Panier.belongsTo(Produit, { foreignKey: 'id_produit', as: 'produit' });
+Produit.hasMany(Panier, { foreignKey: 'id_produit' });
+
 module.exports = Panier;
 
-// Associations (si nécessaire, à définir en dehors de la classe du modèle, selon la façon dont vous structurez votre projet)
-// ProduitPanier.belongsTo(Utilisateur, { foreignKey: 'id_utilisateur' });
-// ProduitPanier.belongsTo(Produit, { foreignKey: 'id_produit' });
+

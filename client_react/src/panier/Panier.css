@@ -1,0 +1,99 @@
+@import '../variables.css';
+
+
+.body{
+    background-color: var(--background-base);
+}
+
+.panier-list {
+    font-family: Arial, sans-serif;
+    margin-top: 100px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.panier-list h2 {
+    color: var(--text-color);
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.panier-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.panier-card {
+    background-color: rgb(247, 247, 247 );
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.panier-card:hover {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.panier-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.panier-content img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.panier-content div {
+    flex: 1;
+}
+
+.panier-content button {
+    padding: 5px 10px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.panier-content button:first-child {
+    margin-right: 5px;
+}
+
+.panier-content button:last-child {
+    margin-left: 5px;
+}
+
+.panier-content button:hover {
+    background-color: var(--link-hover-color);
+}
+
+.total {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--background-light);
+}
+
+.total button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.total button:hover {
+    background-color: var(--link-hover-color);
+}

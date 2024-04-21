@@ -32,6 +32,23 @@ export const deleteProduitFromPanier = async (id_produit) => {
     }
 }
 
+export const deleteEntieryProduitFromPanier = async (id_produit) => {
+    try {
+        const id_utilisateur = await getUserId();
+        const url = new URL('http://localhost:3001/panier/RemoveFromPanier');
+        url.searchParams.append('id_utilisateur', id_utilisateur);
+        url.searchParams.append('id_produit', id_produit);
+
+        const response = await api.delete(url, {
+            method: 'DELETE'
+        });
+        return await response.data;
+    } catch (err) {
+        console.error('Erreur lors de la suppression du panier', err);
+        throw new Error('Failed to delete cart');
+    }
+
+}
 
 export const getUserPanier = async () => {
     try{
@@ -43,5 +60,33 @@ export const getUserPanier = async () => {
         return response.data;
     }catch(err){
         console.error('Erreur lors de la récupération du panier', err);
+    }
+}
+
+export const viderPanierUtilisateur = async () => {
+    try{
+        const id_utilisateur = await getUserId();
+        const url = new URL('http://localhost:3001/panier/delete');
+        url.searchParams.append('id_utilisateur', id_utilisateur);
+        const response = await api.delete(url, {
+            method: 'DELETE'
+        });
+
+        return response.data;
+    }catch(error){
+        console.error('Erreur lors de la suppression du panier', error);
+    }
+} 
+
+export const getPanierWithPrice = async () => {
+    try{
+        const id_utilisateur = await getUserId();
+        const body = {
+            id_utilisateur: id_utilisateur
+        }
+        const response = await api.post(`http://localhost:3001/panier/getPanierPrice`, body);
+        return response.data;
+    }catch(err){
+        console.error('Erreur lors de la récupération du panier avec le prix', err);
     }
 }

@@ -1,4 +1,5 @@
 const Panier = require('../models/panier-model');
+const Produit = require('../models/product-model')
 
 async function getPanier(id) {
     try {
@@ -8,6 +9,24 @@ async function getPanier(id) {
         throw new Error(err, 'Erreur lors de la récupération du panier');
     }
 }
+
+async function getPanierWithPrice(id){
+    try {
+        return await Panier.findAll({
+            where: { id_utilisateur: id },
+            include: [{
+                model: Produit,
+                as: 'produit',
+                attributes: ['id_produit', 'label', 'url', 'prix'] // Ajoutez 'id_produit', 'label' et 'url' aux attributs à récupérer
+            }],
+            attributes: ['quantite'] // Spécifiez les attributs de la table Panier à récupérer, par exemple 'quantite'
+        });
+    } catch (err) {
+        console.error('Erreur lors de la récupération du panier:', err.message);
+        throw new Error('Erreur lors de la récupération du panier');
+    }
+}
+
 
 async function deletePanier(id_utilisateur) {
     try {
@@ -77,4 +96,12 @@ async function deleteProduitPanier(id_utilisateur, id_produit) {
     }
 }
 
-module.exports = { getPanier, getProduitPanier, deletePanier, addPanier, deleteProduitPanier };
+async function removeFromPanier(id_utilisateur, id_produit) {
+    try{
+        await Panier.destroy({ where : { id_utilisateur: id_utilisateur, id_produit: id_produit }});
+    }catch(error){
+        throw new Error(error, 'Erreur lors de la suppression du produit du panier');
+    }
+}
+
+module.exports = { getPanier, getProduitPanier, deletePanier, addPanier, deleteProduitPanier, removeFromPanier, getPanierWithPrice };
