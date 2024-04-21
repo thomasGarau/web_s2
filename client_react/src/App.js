@@ -43,7 +43,7 @@ function App() {
             <Route path="/categorie" element={<PrivateRouteContext element={Categori} />} />
             <Route path="/produit" element={<PrivateRouteContext element={Produit} />} />
             <Route path="/panier" element={<PrivateRouteContext element={Panier} />} />
-            <Route path="/backOffice" element={<PrivateRouteContext element={BackOffice} />} />
+            <Route path="/utilisateur" element={<PrivateRouteContext element={BackOffice} />} />
             <Route path="/" element={<Presentation />} />
           </Routes>
       </div>

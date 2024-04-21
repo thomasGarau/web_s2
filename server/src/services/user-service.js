@@ -1,5 +1,7 @@
 const Utilisateur = require('../models/user-model');
 const TokenModel = require('../models/token-model');
+const Panier = require('../models/panier-model');
+const sequelize = require('../../config/database')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -70,12 +72,28 @@ const updateUser = async (id_user, nom, prenom, email, role) => {
 }
 
 const deleteUser = async (id_user) => {
-    try {
-        const data = await Utilisateur.destroy({ where : { id_utilisateur: id_user }});
-    }
-    catch (err) {
-        console.error(err);
-        throw new Error('Échec de la suppression de l\'utilisateur');
+    try{
+        const t = await sequelize.transaction();
+        try {
+            await Panier.destroy({
+                where: { id_utilisateur: id_user },
+                transaction: t
+            });
+
+            await Utilisateur.destroy({
+                where: { id_utilisateur: id_user },
+                transaction: t
+            });
+
+            await t.commit();
+        } catch (err) {
+            await t.rollback();
+            console.error('Failed to delete product and associated cart items', err);
+            throw new Error('Erreur lors de la suppression de l\'utilisateur');
+        }
+    
+    }catch(error) {
+        throw new Error('Erreur lors de la suppression de l\'utilisateur');
     }
 }
 

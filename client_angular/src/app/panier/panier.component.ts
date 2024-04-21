@@ -29,6 +29,7 @@ export class PanierComponent implements OnInit {
   }
 
   chargerPanier(): void {
+    console.log("test")
     this.panierService.obtenirPanier().subscribe({
       next: (panier) => {
         console.log('Panier', panier);
@@ -94,7 +95,6 @@ export class PanierComponent implements OnInit {
         this.total += this.prix[produit.id_produit] * this.quantites[produit.id_produit];
       }
     });
-    this.chargerPanier();
   }
 
   viderPanier(): void {

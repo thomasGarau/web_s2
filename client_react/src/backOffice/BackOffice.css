@@ -1,0 +1,75 @@
+@import '../variables.css';
+
+.user-list {
+    padding: 20px;
+    margin-top: 100px;
+    font-family: Arial, sans-serif;
+    color: var(--text-color);
+}
+
+.user-list h2 {
+    color: var(--secondary-color);
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.user-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 40px; /* Augmentation de l'espacement */
+}
+
+.user-card {
+    background-color: rgb(245, 245, 245);
+    border: 1px solid rgb(230, 230, 230); /* Couleur de bordure modifiée */
+    border-radius: 5px;
+    padding: 15px;
+    width: 250px;
+    height: 250px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrage des éléments */
+    align-items: center; /* Centrage des éléments */
+}
+
+.user-card:hover {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.user-content {
+    display: flex;
+    flex-direction: column;
+    align-items: start; /* Centrage des éléments */
+    margin-left: 5%;
+    gap: 10px;
+}
+
+.user-content input[type="text"], 
+.user-content input[type="number"], 
+.user-content input[type="email"], 
+.user-content select {
+    width: 90%;
+    padding: 6px;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 4px;
+    margin-bottom: 5px;
+    background-color: var(--background-base);
+}
+
+.user-content button {
+    width: 100%; /* Ajustement de la largeur */
+    padding: 8px 12px; /* Ajustement du padding pour un meilleur affichage */
+    border: none;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    text-align: center; /* Centrage du texte */
+}
+
+.user-content button:hover {
+    background-color: var(--link-hover-color);
+}

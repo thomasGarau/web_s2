@@ -1,5 +1,4 @@
-/* components/Navbar.css */
-@import '../../variables.css'; /* Assurez-vous que le chemin est correct */
+@import '../../variables.css';
 
 .navbar {
     display: flex;
@@ -24,7 +23,7 @@
 .nav-items button {
     margin-left: 10px;
     padding: 10px 15px;
-    background-color: #007bff; /* Utilisation de la couleur primaire pour plus de clarté */
+    background-color: var(--primary-color);
     color: #ffffff;
     border: none;
     border-radius: 5px;
