@@ -5,7 +5,7 @@
     <h1>Menu</h1>
     <ButtonDeconnexion />
 
-    <div v-if="categories.length">
+    <div v-if="!role()">
       <h2>Categories</h2>
       <ul>
         <li v-for="categorie in categories" :key="categorie.id_categorie">
@@ -14,7 +14,7 @@
       </ul>
     </div>
     <div v-else>
-      <p>Loading...</p>
+      <p>Vous n'avez pas les droits pour accéder à cette page</p>
     </div>
   </div>
 </template>
@@ -22,6 +22,7 @@
 <script>
 import ButtonDeconnexion from '../components/ButtonDeconnexion.vue';
 import { getCategories } from '../scripts/categorieMethods';
+import { isAdmin } from '../scripts/loginMethods'; // Rename to avoid confusion
 
 export default {
   components: {
@@ -31,6 +32,11 @@ export default {
     return {
       categories: []
     };
+  },
+  methods: {
+    role() {  // Renamed method
+      return isAdmin();
+    }
   },
   created() {
     getCategories()
@@ -43,3 +49,4 @@ export default {
   }
 };
 </script>
+

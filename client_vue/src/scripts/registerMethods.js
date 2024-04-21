@@ -66,6 +66,8 @@ export const data = () => ({
       .then(response => response.json())
       .then(data => {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('role', data.role);
+        localStorage.setItem('id', data.id_utilisateur);
         this.$router.push('/menu');
       })
       .catch((error) => {
