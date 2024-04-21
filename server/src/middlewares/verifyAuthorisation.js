@@ -26,7 +26,39 @@ const verifyTokenBlacklist = async (req, res, next) => {
     next();
 };
 
+const verifyAdmin = async (req, res, next) => {
+    try{
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if(decoded.role !== 'admin'){
+            return res.status(401).send('Non autorisé');
+        }
+        next();
+    }catch(error) {
+        console.error(error);
+        return res.status(401).send('Non autorisé');
+    
+    }
+};
+
+const verifyIsUser = async (req, res, next) => {
+    try{
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if(decoded.role !== 'user'){
+            return res.status(401).send('Non autorisé');
+        }
+        next();
+    }catch(error) {
+        console.error(error);
+        return res.status(401).send('Non autorisé');
+    
+    }
+};
+
 module.exports = {
     verifyAuthorisation,
-    verifyTokenBlacklist
+    verifyTokenBlacklist,
+    verifyAdmin,
+    verifyIsUser
 }

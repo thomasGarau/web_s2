@@ -1,54 +1,53 @@
 @import '../variables.css';
 
-
-.body{
+.body {
     background-color: var(--background-base);
 }
 
 .panier-list {
     font-family: Arial, sans-serif;
-    margin-top: 100px;
-    padding: 20px;
+    margin-top: 7vh; /* Utilise des unités relatives à la taille de la vue */
+    padding: 2rem; /* Utilise rem pour une échelle basée sur la taille de police de base du document */
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
 }
 
 .panier-list h2 {
     color: var(--text-color);
-    font-size: 40px;
-    margin-bottom: 20px;
+    font-size: 2.5rem; /* Adaptatif en fonction de la taille de la police de base */
+    margin-bottom: 1.25rem;
 }
 
 .panier-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.25rem; /* Utilisation de rem pour l'espacement */
 }
 
 .panier-card {
-    background-color: rgb(247, 247, 247 );
+    background-color: rgb(247, 247, 247);
     border: 1px solid rgb(230, 230, 230);
     border-radius: 5px;
-    padding: 15px;
+    padding: 1rem;
     display: flex;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 0.125rem 0.3125rem rgba(0,0,0,0.1);
 }
 
 .panier-card:hover {
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 0.125rem 0.3125rem rgba(0,0,0,0.3);
 }
 
 .panier-content {
     display: flex;
     align-items: center;
     width: 100%;
-    gap: 10px;
+    gap: 0.625rem;
 }
 
 .panier-content img {
-    width: 80px;
-    height: 60px;
+    width: 6vw; /* Utilise viewport width pour rendre la taille de l'image dynamique */
+    height: 4.5vw; /* Hauteur en fonction de la largeur pour maintenir l'aspect ratio */
     object-fit: cover;
 }
 
@@ -57,19 +56,20 @@
 }
 
 .panier-content button {
-    padding: 5px 10px;
+    padding: 0.3125rem 0.625rem;
     border: none;
     background-color: var(--primary-color);
     color: white;
     border-radius: 4px;
     cursor: pointer;
 }
+
 .panier-content button:first-child {
-    margin-right: 5px;
+    margin-right: 0.3125rem;
 }
 
 .panier-content button:last-child {
-    margin-left: 5px;
+    margin-left: 0.3125rem;
 }
 
 .panier-content button:hover {
@@ -77,16 +77,16 @@
 }
 
 .total {
-    margin-top: 20px;
+    margin-top: 1.25rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 0.625rem 1.25rem;
     background-color: var(--background-light);
 }
 
 .total button {
-    padding: 10px 20px;
+    padding: 0.625rem 1.25rem;
     background-color: var(--primary-color);
     color: white;
     border-radius: 5px;
@@ -97,3 +97,31 @@
 .total button:hover {
     background-color: var(--link-hover-color);
 }
+
+
+@media (max-width: 550px) {
+    .panier-content, .total {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .panier-content img {
+        width: 100px; /* Taille réduite pour les images */
+        height: 75px;
+    }
+
+    .panier-content div, .panier-content button {
+        width: 100%; /* Permet à tous les éléments de prendre toute la largeur */
+        margin-top: 5px; /* Ajoute un peu d'espace entre les éléments quand ils sont en colonne */
+    }
+
+    .total {
+        flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si nécessaire */
+    }
+
+    .total div, .total button {
+        flex-basis: 100%; /* Chaque élément prend la pleine largeur d'une ligne */
+        margin-top: 5px;
+    }
+}
+
