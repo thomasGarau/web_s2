@@ -1,0 +1,13 @@
+/* src/variables.css */
+:root {
+    --primary-color: #a6b0f0; /* Bleu plus clair et lumineux */
+    --secondary-color: #4263EB; /* Bleu un peu plus intense mais pas trop sombre */
+    --link-color: #4263EB; /* Bleu cohérent pour les liens */
+    --link-hover-color: #364FC7; /* Bleu plus sombre pour le survol des liens */
+    --background-light: rgba(255, 255, 255, 0.8); /* Pour les arrière-plans semi-transparents */
+    --text-color: #354B5E; /* Gris bleuté foncé pour un meilleur contraste avec les fonds clairs */
+    --text-secondary-color: #5F6A7B; /* Gris bleuté clair pour le texte secondaire */
+    --navbar-background: rgba(240, 242, 255, 0.95); /* Couleur de fond très claire et légèrement transparente pour la navbar */
+    --background-base: #F0F2FF; /* Couleur de fond très claire utilisée fréquemment */
+    --accent-color: #748FFC; /* Une couleur accentuée pour attirer l'attention, lumineuse mais pas écrasante */
+}

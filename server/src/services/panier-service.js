@@ -20,7 +20,6 @@ async function deletePanier(id_utilisateur) {
 
 async function getProduitPanier(id_utilisateur, id_produit) {
     try {
-        console.log('id_utilisateur:', id_utilisateur, 'id_produit:', id_produit);
         return await Panier.findOne({ where : { id_utilisateur: id_utilisateur, id_produit: id_produit }});
     }
     catch (err) {
@@ -34,20 +33,16 @@ async function addPanier(id_utilisateur, id_produit) {
     try {
         const panier = await getPanier(id_utilisateur);
         if(panier !== null){
-            console.log('panier', panier);
             const produit = await getProduitPanier(id_utilisateur, id_produit);
             if(produit !== null){
-                console.log('produit', produit);
                 produit.quantite += 1;
                 await produit.save();
             }
             else{
-                console.log("creation produit dans panier");
                 await Panier.create({id_utilisateur: id_utilisateur, id_produit: id_produit, quantite: 1});
             }
         }
         else{
-            console.log("creation panier");
             await Panier.create({id_utilisateur: id_utilisateur, id_produit: id_produit, quantite: 1});
         }
     }

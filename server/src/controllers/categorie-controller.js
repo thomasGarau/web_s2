@@ -19,7 +19,7 @@ exports.getAllCategorie = ( async (req,res) => {
     }
     catch (err) {
         res.status(500).send('Erreur lors de la récupération des catégories');
-        console.log(err);
+        console.error(err);
     }
 }
 );
@@ -32,7 +32,7 @@ exports.addCategorie = (async (req,res) => {
     }
     catch (err) {
         res.status(500).send('Erreur lors de l\'ajout des catégories');
-        console.log(err);
+        console.error(err);
     }
 });
 
@@ -42,7 +42,7 @@ exports.deleteCategorie = (async (req,res) => {
         res.status(200).json({mmessage : "ok"});
     }
     catch (err) {
-        console.log(err);
+        console.error(err);
         res.status(500).send('Erreur lors de la suppression des catégories');
     }
 });

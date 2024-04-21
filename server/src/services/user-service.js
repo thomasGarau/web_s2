@@ -102,7 +102,6 @@ function verifyToken(token) {
 
 async function userExist(email) {
     Utilisateur.findOne({ where: { email: email } })
-    .then(user => console.log(user))
     .then(user => {return user;})
     .catch(error => console.error(error));
 }

@@ -19,7 +19,7 @@ exports.getAllProduct = ( async (req,res) => {
     }
     catch (err) {
         res.status(500).send('Erreur lors de la récupération des produits');
-        console.log(err);
+        console.error(err);
     }
 });
 
@@ -32,7 +32,7 @@ exports.addProduct = (async (req,res) => {
     }
     catch (err) {
         res.status(500).send('Erreur lors de l\'ajout des produits');
-        console.log(err);
+        console.error(err);
     }
 });
 
@@ -42,7 +42,7 @@ exports.deleteProduct = (async (req,res) => {
         res.status(200).json({message : "ok"});
     }
     catch (err) {
-        console.log(err);
+        console.error(err);
         res.status(500).send('Erreur lors de la suppression des produits');
     }
 });

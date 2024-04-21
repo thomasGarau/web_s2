@@ -3,7 +3,6 @@ const userService = require('../services/user-service');
 exports.verifyToken = ((req,res) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
-        console.log(token, "bbb")
         if(!token || token == 'undefined' || token == 'null'){
             throw new Error('Token invalide');
         }else{
@@ -75,7 +74,7 @@ exports.Authenticate = (async (req,res) => {
         const { email, password, name, firstname } = req.body;
         if(!await userService.userExist(email)){
             const {token, id_utilisateur} = await userService.registerUser(email, password, name, firstname);
-            res.status(200).send({email: email, token: token, days: 7, id_utilisateur: id_utilisateur});
+            res.status(200).send({email: email, token: token, days: 7, id_utilisateur: id_utilisateur, role : 'user'});
         }else{
             res.status(401).send("Nom d utilisateur déjà utilisé");
         }

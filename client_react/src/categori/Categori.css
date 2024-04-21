@@ -1,0 +1,148 @@
+@import '.././variables.css';
+
+.Categori {
+  padding: 20px;
+  margin-top: 100px;
+}
+
+h1, h2 {
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.categories-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.category-card {
+  background-color: var(--background-light);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  width: 400px;
+  height: 350px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.category-card:hover {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.category-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.category-content img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  object-position: center;
+}
+
+.category-content a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.category-content a:hover {
+  text-decoration: underline;
+}
+
+.category-content button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+}
+
+.update-button {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.category-content button:hover {
+  background-color: var(--link-hover-color);
+}
+
+.category-content input[type="text"], .category-content input[type="file"] {
+  padding: 6px;
+  width: 90%;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+}
+
+.category-content input[type="file"] {
+  width: auto;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.form-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  
+
+  .category-content > div {
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .category-label{
+    color : var(--link-color);
+  }
+  

@@ -14,7 +14,6 @@ exports.getPanier = ( async (req,res) => {
 
 exports.getProduitsPanier = (async (req,res) => {
     try {
-        console.log('id_utilisateur:', req.body.id_utilisateur, 'id_produit:', req.body.id_produit);
         const id = req.body.id_utilisateur;
         const produit = req.body.id_produit;
         const produitPanier = await panierService.getProduitPanier(id, produit);

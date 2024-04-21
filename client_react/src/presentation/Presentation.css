@@ -1,0 +1,64 @@
+/* Assurez-vous d'importer les variables CSS */
+@import '.././variables.css'; /* Adaptez ce chemin au besoin */
+
+@keyframes slideBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000% 0;
+  }
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url('../../public/fond_legume.png'); /* Vérifiez le chemin */
+  background-size: contain;
+  background-repeat: repeat-x;
+  animation: slideBackground 360s linear infinite;
+}
+
+.home-content {
+  text-align: center; /* S'assure que tout à l'intérieur est centré */
+  padding: 2rem;
+  background-color: var(--background-light);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-content:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  font-size: 3rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1.5rem;
+  color: var(--text-secondary-color);
+  max-width: 600px; /* Centrage horizontal du paragraphe */
+  margin: 0 auto; /* Centrage automatique des marges */
+}
+
+.link {
+  font-size: 1.25rem;
+  color: var(--link-color);
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: var(--link-hover-color);
+}

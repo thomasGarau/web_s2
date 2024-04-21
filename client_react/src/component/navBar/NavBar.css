@@ -1,0 +1,52 @@
+/* components/Navbar.css */
+@import '../../variables.css'; /* Assurez-vous que le chemin est correct */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: var(--navbar-background);
+    color: #ffffff;
+    height: 12vh;
+    min-height: 50px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.nav-items {
+    margin-right: 3%;
+}
+
+.nav-items button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    background-color: #007bff; /* Utilisation de la couleur primaire pour plus de clarté */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.nav-items button:hover {
+    background-color: var(--link-hover-color);
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-brand img {
+    height: 70px;
+    margin-right: 10px;
+}
+
+

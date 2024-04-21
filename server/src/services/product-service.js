@@ -1,4 +1,6 @@
 const Product = require('../models/product-model');
+const Panier = require('../models/panier-model');
+const sequelize = require('../../config/database');
 
 async function getProduct(id_produit) {
     try {
@@ -29,11 +31,24 @@ async function addProduct(label, prix, id_categorie, stock) {
 }
 
 async function deleteProduct(id_produit) {
+    const t = await sequelize.transaction();
+
     try {
-        const data = await Product.destroy({ where : { id_produit: id_produit }});
-    }
-    catch (err) {
-        throw new Error(err,'Erreur lors de la suppression des produits');
+        await Panier.destroy({
+            where: { id_produit: id_produit },
+            transaction: t
+        });
+
+        await Product.destroy({
+            where: { id_produit: id_produit },
+            transaction: t
+        });
+
+        await t.commit();
+    } catch (err) {
+        await t.rollback();
+        console.error('Failed to delete product and associated cart items', err);
+        throw new Error('Erreur lors de la suppression des produits');
     }
 }
 
