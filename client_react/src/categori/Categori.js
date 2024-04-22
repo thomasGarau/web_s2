@@ -67,7 +67,8 @@ const Categori = () => {
         setLoading(false);
     };
 
-    const startEditing = (category) => {
+    const startEditing = (e, category) => {
+        e.stopPropagation();
         setEditingCategory({ ...category });
     };
 
@@ -75,7 +76,8 @@ const Categori = () => {
         setEditingCategory(null);
     };
 
-    const removeCategory = async (id) => {
+    const removeCategory = async (e, id) => {
+        e.stopPropagation();
         try {
             
             await deleteCategori(id);
@@ -129,12 +131,12 @@ const Categori = () => {
                                     <div onClick={() => handleProduct(category.id_categorie)}>
                                         <img src={category.url} alt={category.label} />
                                         <div className="category-label">{category.label}</div>
-                                        {isAdmin && (
-                                            <>
-                                                <button onClick={() => startEditing(category)}>Modifier</button>
-                                                <button onClick={() => removeCategory(category.id_categorie)}>Supprimer</button>
-                                            </>
-                                        )}
+                                            {isAdmin && (
+                                                <div className="update-button">
+                                                    <button onClick={(e) => startEditing(e, category)}>Modifier</button>
+                                                    <button onClick={(e) => removeCategory(e, category.id_categorie)}>Supprimer</button>
+                                                </div>
+                                            )}
                                     </div>
                                 </>
                             )}

@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 const authenticateUser = async (username, password) => {
     const user = await Utilisateur.findOne({ where: { email: username } });
     if (user && await bcrypt.compare(password, user.mdp)) {
-        const token = genToken(user.id_utilisateur);
+        const token = genToken(user.id_utilisateur, user.role);
         return { token: token, id_utilisateur: user.id_utilisateur, role : user.role};
     } else {
         throw new Error('Identifiants incorrects');
@@ -41,7 +41,7 @@ const registerUser = async (username, password, name, firstname) => {
             nom: name,
             prenom: firstname,
         });
-        const token = genToken(newUser.id_utilisateur);
+        const token = genToken(newUser.id_utilisateur, 'user');
 
         return { token: token, id_utilisateur: newUser.id_utilisateur };
     } catch (err) {
@@ -97,9 +97,10 @@ const deleteUser = async (id_user) => {
     }
 }
 
-function genToken(user_id) {
+function genToken(user_id, role) {
     const token = jwt.sign({
             user_id: user_id,
+            role: role
         },
         process.env.JWT_SECRET, {
             expiresIn: '7d'

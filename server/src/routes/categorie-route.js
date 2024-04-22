@@ -6,14 +6,14 @@ const { getCategorie, getAllCategorie, addCategorie, deleteCategorie, updateCate
 const { uploadImage } = require('../services/image-service.js');
 const { validateField } = require('../middlewares/sanitizeInput.js');
 const Categorie = require('../models/categorie-model.js'); 
-const { verifyTokenBlacklist, verifyAuthorisation } = require('../middlewares/verifyAuthorisation.js');
+const { verifyTokenBlacklist, verifyAuthorisation, verifyAdmin } = require('../middlewares/verifyAuthorisation.js');
 const parser = multer({ storage: storage });
 
 
 router.post('/get', validateField('id_categorie'), getCategorie);
 router.get('/all',getAllCategorie);
-router.delete('/delete',[verifyAuthorisation, verifyTokenBlacklist, validateField('id_categorie')],  deleteCategorie);
-router.put('/update', [verifyAuthorisation, verifyTokenBlacklist, validateField()],  uploadImage, async (req, res) => {
+router.delete('/delete',[verifyAuthorisation, verifyTokenBlacklist, verifyAdmin,  validateField('id_categorie')],  deleteCategorie);
+router.put('/update', [verifyAuthorisation, verifyTokenBlacklist, verifyAdmin, validateField()],  uploadImage, async (req, res) => {
     try {
         const { id_categorie, label } = req.body;
         let url = req.file ? req.file.path : null;
@@ -32,10 +32,9 @@ router.put('/update', [verifyAuthorisation, verifyTokenBlacklist, validateField(
     }
 });
 
-router.post('/add',[verifyAuthorisation, verifyTokenBlacklist], uploadImage, async (req, res) => {
+router.post('/add',[verifyAuthorisation, verifyTokenBlacklist, verifyAdmin], uploadImage, async (req, res) => {
     try {
-        // L'image est maintenant téléchargée, l'URL est disponible dans req.file.path
-        const { label } = req.body; // Assurez-vous que 'label' est envoyé dans le corps de la requête
+        const { label } = req.body;
         const url = req.file.path;
         
         const categorie = await Categorie.create({
