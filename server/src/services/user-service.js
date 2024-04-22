@@ -41,7 +41,7 @@ const registerUser = async (username, password, name, firstname) => {
             nom: name,
             prenom: firstname,
         });
-        const token = genToken(newUser.id_utilisateur, 'user');
+        const token = genToken(newUser.id_utilisateur, 'client');
 
         return { token: token, id_utilisateur: newUser.id_utilisateur };
     } catch (err) {
