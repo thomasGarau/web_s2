@@ -133,6 +133,7 @@ export default {
     transition: background-color 0.3s, color 0.3s;
     background-color: var(--secondary-color);
     color: #fff;
+    text-decoration: none;
   }
   
   .button-base:hover {
