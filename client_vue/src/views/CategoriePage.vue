@@ -25,9 +25,9 @@
             <div v-if="loading" class="loading-overlay">
               <div class="spinner"></div>
             </div>
-            <div>
+            <div class="category-content">
               <input type="text" v-model="produit.details.label" name="label" placeholder="Nom du produit" required>
-              <input type="number" v-model.number="produit.details.prix" name="prix" placeholder="Prix" required>
+              <input type="number" v-model.number="produit.details.prix" name="prix" placeholder="Prix" step="0.01" required>
               <input type="number" v-model.number="produit.details.stock" name="stock" placeholder="Quantité" required>
               <input type="file" @change="onFileSelected($event, produit)" accept="image/*">
               <button type="submit">Sauvegarder</button>
@@ -73,32 +73,23 @@
 <script>
 import { ref, onMounted } from 'vue';
 import { getCategorieById, getProduitsByCategorie } from '../scripts/categorieMethods';
-import { AddProductToPanier, RemoveProductFromPanier, getPanierByUser } from '@/scripts/produitMethods';
+import { AddProductToPanier, RemoveProductFromPanier, getPanierByUser, addProduitNew, updateProduit, deleteProduit } from '@/scripts/produitMethods';
 import { isAdmin } from '../scripts/loginMethods';
 import NavBar from '../components/NavBar.vue';
 
 export default {
   props: ['id_categorie'],
+  data () {
+    return {
+      loading: false
+    }
+  },
   setup(props) {
     const categorie = ref(null);
     let produits = ref([]);
     let nouveauProduit = ref({ label: '', prix: 0, stock: 0 });
     let role = ref(false);
-    let user = localStorage.getItem('id');
-    const token = localStorage.getItem('token');
     const panier = ref([]);
-
-    const ajouterAuPanier = (produit) => {
-      produit.count++;
-      AddProductToPanier(produit.details.id_produit, user, token).catch(console.error);
-    };
-
-    const enleverDuPanier = (produit) => {
-      if (produit.count > 0) {
-        produit.count--;
-        RemoveProductFromPanier(produit.details.id_produit, user, token).catch(console.error);
-      }
-    };
 
     const syncProductCounts = () => {
       produits.value.forEach(produit => {
@@ -109,16 +100,12 @@ export default {
       });
     };
 
-    const formatPrice = (price) => {
-      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
-    };
-
     onMounted(async () => {
       try {
         categorie.value = await getCategorieById(props.id_categorie);
         const rawProduits = await getProduitsByCategorie(props.id_categorie);
-        panier.value = await getPanierByUser(user, token);
-          role.value = isAdmin();
+        panier.value = await getPanierByUser();
+        role.value = isAdmin();
         produits.value = rawProduits.map(p => ({ details: p, count: 0 }));
         syncProductCounts(); // Update product counts based on the cart
       } catch (error) {
@@ -126,10 +113,89 @@ export default {
       }
     });
 
-    return { categorie, produits, nouveauProduit, role, panier, ajouterAuPanier, enleverDuPanier,formatPrice };
+    return { categorie, produits, nouveauProduit, role, panier};
   },
   components: {
     NavBar
+  },
+  methods : {
+    ajouterProduit() {
+      this.loading = true;
+      const formData = new FormData();
+      formData.append('label', this.nouveauProduit.label);
+      formData.append('prix', this.nouveauProduit.prix);
+      formData.append('stock', this.nouveauProduit.stock);
+      formData.append('url', this.nouveauProduit.file);
+      formData.append('id_categorie', this.id_categorie);
+      addProduitNew(formData, this.token).then(() => {
+        this.fetchProduits();
+        this.loading = false;
+        this.nouveauProduit.label = '';
+        this.nouveauProduit.prix = 0;
+        this.nouveauProduit.stock = 0;
+        this.nouveauProduit.url = null;
+      });
+    },
+
+    fetchProduits() {
+      getProduitsByCategorie(this.id_categorie)
+        .then(data => {
+          this.produits = data.map(p => ({ details: p, count: 0 }));
+          this.syncProductCounts();
+        })
+        .catch(console.error);
+    },
+
+    onFileSelected(event, produit) {
+      const files = event.target.files;
+      if (files.length > 0) {
+        produit.file = files[0];
+      }
+    },
+    ajouterAuPanier(produit) {
+      produit.count++;
+      AddProductToPanier(produit.details.id_produit).catch(console.error);
+    },
+    enleverDuPanier(produit) {
+      if (produit.count > 0) {
+        produit.count--;
+        RemoveProductFromPanier(produit.details.id_produit, this.user, this.token).catch(console.error);
+      }
+    },
+    formatPrice(price) {
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
+    },
+    modifierLeProduit(produit) {
+      produit.enEdition = true;
+    },
+    annulerEdition(produit) {
+      produit.enEdition = false;
+    },
+    sauvegarder(produit) {
+      this.loading = true;
+      const formData = new FormData();
+      formData.append('label', produit.details.label);
+      formData.append('prix', produit.details.prix);
+      formData.append('stock', produit.details.stock);
+      if (produit.file) {
+        formData.append('url', produit.file);
+      }
+      formData.append('id_produit', produit.details.id_produit);
+      updateProduit(formData, this.token).then(() => {
+        this.fetchProduits();
+        this.loading = false;
+        produit.enEdition = false;
+        produit.file = null;
+      });
+    },
+    supprimerProduit(produit) {
+      this.loading = true;
+      deleteProduit(produit.details.id_produit, this.token).then(() => {
+        this.fetchProduits();
+        this.loading = false;
+      });
+    }
+  
   }
 };
 </script>
@@ -254,6 +320,8 @@ export default {
   color: white;
   cursor: pointer;
 }
+
+
 
 .category-content input[type="file"]::file-selector-button:hover {
   background-color: var(--dark-primary-color); /* Approximated darker shade */

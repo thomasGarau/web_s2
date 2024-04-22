@@ -45,10 +45,11 @@ export default {
   align-items: center;
   min-height: 100vh;
   background-color: #f4f4f4;
-  background-image: url('fond_legume.png');
+  background-image: url('fond_vert.png');
   background-size: contain;
   background-repeat: repeat;
   animation: slideBackground 10000000000000000s linear infinite;
+  overflow-y: hidden;
 }
 
 @keyframes slideBackground {

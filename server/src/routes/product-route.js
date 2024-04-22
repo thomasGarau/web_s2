@@ -41,6 +41,6 @@ router.put('/update', [verifyAuthorisation, verifyTokenBlacklist, verifyAdmin,  
 
 router.post('/product', validateField('label'), getProduct);
 router.post('/all',validateField('id_categorie'), getAllProduct);
-router.delete('/delete',[verifyAuthorisation, verifyTokenBlacklist, verifyAdmin, validateField('id_user')],  deleteProduct);
+router.delete('/delete',[verifyAuthorisation, verifyTokenBlacklist, verifyAdmin, validateField('id_produit')],  deleteProduct);
 
 module.exports = router;
