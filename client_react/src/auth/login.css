@@ -1,12 +1,11 @@
-/* Assurez-vous d'importer les variables CSS */
-@import '../variables.css'; /* Adaptez ce chemin au besoin */
+@import '../variables.css';
 
 @keyframes slideBackground {
   from {
     background-position: 0 0;
   }
   to {
-    background-position: -10000% 0;
+    background-position: -1000px 0;
   }
 }
 
@@ -15,20 +14,20 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('../../public/fond_legume.png'); /* Vérifiez le chemin */
-    background-size: contain;
+    background-image: url('../../public/fond_legume.png');
+    background-size: auto 100%;
     background-repeat: repeat-x;
-    animation: slideBackground 360s linear infinite; /* Animation du fond */
+    animation: slideBackground linear infinite;
 }
 
 .login-form-container {
-    width: 100%;
+    width: 90%;
     max-width: 400px;
     padding: 20px;
-    background: var(--background-light); /* Fond semi-transparent pour le formulaire */
+    background: var(--background-light);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 10; /* Assurez-vous que le formulaire est visible au-dessus du fond animé */
+    z-index: 10;
 }
 
 .input-group {
@@ -42,11 +41,13 @@
 }
 
 .input-group input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    width: 100%!important;
+    padding: 10px!important;
+    border: 1px solid #ccc!important;
+    border-radius: 5px!important;
+    box-sizing: border-box!important; /* S'assure que le padding et la border sont inclus dans la largeur */
 }
+
 
 .login-button {
     width: 100%;
@@ -60,4 +61,16 @@
 
 .login-button:hover {
     background-color: var(--secondary-color);
+}
+
+/* Media Query for screens narrower than 550px */
+@media (max-width: 550px) {
+    .login-form-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .input-group input, .login-button {
+        padding: 8px;
+    }
 }

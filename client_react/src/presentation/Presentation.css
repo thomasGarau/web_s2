@@ -1,12 +1,11 @@
-/* Assurez-vous d'importer les variables CSS */
-@import '.././variables.css'; /* Adaptez ce chemin au besoin */
+@import '.././variables.css';
 
 @keyframes slideBackground {
   from {
     background-position: 0 0;
   }
   to {
-    background-position: -10000% 0;
+    background-position: -1000px 0;
   }
 }
 
@@ -16,14 +15,17 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-image: url('../../public/fond_legume.png'); /* Vérifiez le chemin */
-  background-size: contain;
+  background-image: url('../../public/fond_legume.png');
+  background-size: auto 100%;
   background-repeat: repeat-x;
-  animation: slideBackground 360s linear infinite;
+  animation: slideBackground linear infinite;
 }
 
 .home-content {
-  text-align: center; /* S'assure que tout à l'intérieur est centré */
+  width: 90%;
+  max-width: 600px;
+  min-width: 300px;
+  text-align: center;
   padding: 2rem;
   background-color: var(--background-light);
   border-radius: 10px;
@@ -39,16 +41,16 @@
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 4vw;
   color: var(--text-color);
   margin-bottom: 1rem;
 }
 
 p {
-  font-size: 1.5rem;
+  font-size: 1.5vw;
   color: var(--text-secondary-color);
-  max-width: 600px; /* Centrage horizontal du paragraphe */
-  margin: 0 auto; /* Centrage automatique des marges */
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .link {

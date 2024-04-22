@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthService } from '../auth/AuthAPI';
 import { validateEmail, validatePassword } from '../services/regex';
@@ -13,6 +13,26 @@ const Register = () => {
   const [error, setError] = useState({});
   const navigate = useNavigate();
   const { register } = useAuthService();
+
+  useEffect(() => {
+    const registerContainer = document.querySelector('.register-container');
+    const adjustAnimationSpeed = () => {
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+      const minDimension = Math.min(screenWidth, screenHeight); // Use the smallest dimension
+      const baseDimension = 1920; // Base dimension for the calculation
+      const baseSpeed = 30; // Base duration for a dimension of 1920 pixels
+      const speed = (baseSpeed * baseDimension) / minDimension; // Adjust duration based on the smallest dimension
+      registerContainer.style.animationDuration = `${speed}s`;
+    };
+
+    adjustAnimationSpeed();
+    window.addEventListener('resize', adjustAnimationSpeed);
+
+    return () => {
+      window.removeEventListener('resize', adjustAnimationSpeed);
+    };
+  }, []);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -53,7 +73,7 @@ const Register = () => {
         <h2>Inscription</h2>
         <form onSubmit={handleRegister} className="register-form">
           <div className="input-group">
-            <label>Prenom</label>
+            <label>Prénom</label>
             <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
             {error.firstName && <div className="error-message">{error.firstName}</div>}
           </div>
@@ -63,7 +83,7 @@ const Register = () => {
             {error.name && <div className="error-message">{error.name}</div>}
           </div>
           <div className="input-group">
-            <label>email</label>
+            <label>Email</label>
             <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
             {error.email && <div className="error-message">{error.email}</div>}
           </div>

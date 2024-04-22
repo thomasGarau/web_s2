@@ -31,8 +31,6 @@
     font-size: 1rem; /* Taille de police adaptative */
 }
 
-
-
 .nav-items button:hover {
     background-color: var(--link-hover-color);
 }
@@ -50,4 +48,34 @@
 .navbar-brand img {
     height: 9vh; /* Hauteur basée sur la vue */
     margin-right: 10px;
+}
+
+/* Media Query for screens narrower than 550px */
+@media (max-width: 550px) {
+    .navbar {
+        flex-direction: column; /* Change layout to vertical */
+        padding: 0.5rem 1rem; /* Adjust padding for smaller screens */
+        height: auto; /* Make height auto to accommodate vertical layout */
+    }
+
+    .navbar-brand {
+        margin-bottom: 0.5rem; /* Provide some spacing between items */
+        justify-content: center; /* Center the brand for aesthetics */
+        font-size: 1rem; /* Adjust font size for better fit */
+    }
+
+    .navbar-brand img {
+        height: 7vh; /* Adjust image size to be smaller */
+    }
+
+    .nav-items {
+        justify-content: center; /* Center navigation items */
+        width: 100%; /* Full width for easier navigation */
+        margin: 0; /* Remove margin */
+    }
+
+    .nav-items button {
+        margin: 0 0.3125rem; /* Adjust margin between buttons */
+        padding: 0.5rem; /* Reduce padding */
+    }
 }
