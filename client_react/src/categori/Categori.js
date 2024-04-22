@@ -72,6 +72,7 @@ const Categori = () => {
         setEditingCategory({ ...category });
     };
 
+
     const cancelEditing = () => {
         setEditingCategory(null);
     };
