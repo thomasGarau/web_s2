@@ -65,7 +65,7 @@ exports.removeFromPanier = (async (req,res) => {
     try{
         const {id_utilisateur, id_produit} = req.query;
         await panierService.removeFromPanier(id_utilisateur, id_produit);
-        res.status(200).send('Produit retiré du panier');
+        res.status(200).json({message : 'Produit retiré du panier'});
     }catch(error){
         console.error(error);
         res.status(500).send('Erreur lors de la suppression du produit du panier');

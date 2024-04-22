@@ -1,5 +1,8 @@
 <template>
+  <div>
+    <NavBar />
   <div class="login-container">
+    
     <h1>Connexion</h1>
     <form @submit.prevent="login">
       <div>
@@ -13,16 +16,21 @@
       <button type="submit">Connexion</button>
     </form>
   </div>
+</div>
 </template>
 
 <script>
 
 import { data, login } from '../../scripts/loginMethods';
+import NavBar from '../../components/NavBar.vue';
 
 export default {
   data,
   methods: {
     login
+  },
+  components: {
+    NavBar
   }
 }
 

@@ -1,5 +1,6 @@
 <template>
     <div>
+      <NavBar />
       <h1>Page d'Inscription</h1>
       <form @submit.prevent="register">
         <div>
@@ -32,12 +33,18 @@
 
 <script>
  import { data, register, submitRegistration } from '../../scripts/registerMethods';
+  import NavBar from '../../components/NavBar.vue';
+  
+  
  
  export default {
   data,
   methods: {
     register,
     submitRegistration
+  },
+  components: {
+    NavBar
   }
 }
  </script>

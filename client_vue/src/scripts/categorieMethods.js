@@ -62,4 +62,88 @@ export async function getProduitsByCategorie(id) {
 }
 
 
+export async function updateCategorie(formData) {
+    const token = localStorage.getItem('token');
+    const headers = new Headers({
+        'Authorization': `Bearer ${token}`
+    });
+
+    try {
+        const response = await fetch(`${process.env.VUE_APP_SERVER_URL}/categorie/update`, {
+            method: 'PUT',
+            body: formData,
+            headers: headers
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Response from server:', data);
+        return data;
+    } catch (error) {
+        console.error('Error updating category:');
+        throw error;
+    }
+}
+
+export async function deleteCategorie(id) {
+    const token = localStorage.getItem('token');
+    const headers = new Headers({
+        'Authorization': `Bearer ${token}`
+    });
+
+    // Using URLSearchParams to handle query parameters.
+    const params = new URLSearchParams({ id_categorie: id.toString() });
+    const url = `${process.env.VUE_APP_SERVER_URL}/categorie/delete?${params}`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: headers
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Response from server:', data);
+        return data;
+    } catch (error) {
+        console.error('Error deleting category:', error);
+        throw error;
+    }
+}
+
+export async function addCategorie(formData) {
+    const token = localStorage.getItem('token');
+    const headers = new Headers({
+        'Authorization': `Bearer ${token}`
+    });
+
+    try {
+        const response = await fetch(`${process.env.VUE_APP_SERVER_URL}/categorie/add`, {
+            method: 'POST',
+            body: formData,
+            headers: headers
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Response from server:', data);
+        return data;
+    } catch (error) {
+        console.error('Error adding category:', error);
+        throw error;
+    }
+}
+
+
+
+
 

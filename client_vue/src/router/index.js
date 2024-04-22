@@ -4,6 +4,7 @@ import LoginPage from '../views/Auth/LoginPage.vue';
 import RegisterPage from '../views/Auth/RegisterPage.vue';
 import MenuPage from '../views/MenuPage.vue';
 import CategoriePage from '../views/CategoriePage.vue';
+import PanierPage from '../views/PanierPage.vue';
 
 
 const router = createRouter({
@@ -33,6 +34,13 @@ const router = createRouter({
       meta: { requiresAuth: true }  // Ajouter un meta champ pour indiquer que cette route nécessite une authentification
     },
 
+    {
+      path: '/panier',
+      component: PanierPage,
+      meta: { requiresAuth: true }  // Ajouter un meta champ pour indiquer que cette route nécessite une authentification
+      
+    }
+
   ]
 });
 
@@ -49,6 +57,7 @@ router.beforeEach((to, from, next) => {
       next(); 
     }
   });
+  
 
 export default router;
 

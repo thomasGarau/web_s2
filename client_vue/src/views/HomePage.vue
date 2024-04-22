@@ -1,5 +1,6 @@
 <template>
     <div>
+      <NavBar />
       <h1>Page d'accueil</h1>
       <button @click="goToLogin">Connexion</button>
       <button @click="goToSignup">Inscription</button>
@@ -7,6 +8,9 @@
   </template>
   
   <script>
+
+import NavBar from '../components/NavBar.vue';
+
   export default {
     methods: {
       goToLogin() {
@@ -15,7 +19,11 @@
       goToSignup() {
         this.$router.push('/register');
       }
+    },
+    components: {
+      NavBar
     }
+
   }
   </script>
   
