@@ -1,5 +1,7 @@
-export async function AddProductToPanier(id_produit, id_utilisateur, token){
+export async function AddProductToPanier(id_produit){
     try {
+        const token = localStorage.getItem('token');
+        const id_utilisateur = localStorage.getItem('id');
         const response = await fetch(`${process.env.VUE_APP_SERVER_URL}/panier/add`, {
             method: 'POST',
             headers: {
@@ -50,8 +52,11 @@ export async function RemoveProductFromPanier(id_produit, id_utilisateur, token)
 }
 
 
-export async function getPanierByUser(id_utilisateur, token) {
+export async function getPanierByUser() {
     try {
+
+        const token = localStorage.getItem('token');
+        const id_utilisateur = localStorage.getItem('id');
         const response = await fetch(`${process.env.VUE_APP_SERVER_URL}/panier/get`, {
             method: 'POST',
             headers: {
@@ -146,6 +151,85 @@ export async function ClearPanier(id_utilisateur, token) {
         return data;
     } catch (error) {
         console.error('Error in ClearPanier:', error);
+        throw error;
+    }
+}
+
+
+export async function addProduitNew(formData){
+    try {
+
+        const token = localStorage.getItem('token');
+        const headers = new Headers({
+            'Authorization': `Bearer ${token}`
+        });
+
+        const response = await fetch(`${process.env.VUE_APP_SERVER_URL}/product/add`, {
+            method: 'POST',
+            headers: headers,
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de l\'ajout du produit');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error in addProduitNew:', error);
+        throw error;
+    }
+}
+export async function updateProduit(formData) {
+    try {
+        const token = localStorage.getItem('token');
+        const headers = new Headers({
+            'Authorization': `Bearer ${token}`
+        });
+
+        const response = await fetch(`${process.env.VUE_APP_SERVER_URL}/product/update`, {
+            method: 'PUT',
+            headers: headers,
+            body: formData
+        });
+        
+        if (!response.ok) {
+            throw new Error('Erreur lors de la mise à jour du produit');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error in updateProduit:', error);
+        throw error;
+    }
+}
+
+export async function deleteProduit(id_produit) {
+    try {
+        const token = localStorage.getItem('token');
+        const headers = new Headers({
+            'Authorization': `Bearer ${token}`
+        });
+
+        const params = new URLSearchParams({ id_produit: id_produit });
+        const url = new URL(`${process.env.VUE_APP_SERVER_URL}/product/delete?${params}`);
+
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: headers
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la suppression du produit');
+        }
+
+        const data = await response.json();
+        return data;
+    }
+    catch (error) {
+        console.error('Error in deleteProduit:', error);
         throw error;
     }
 }

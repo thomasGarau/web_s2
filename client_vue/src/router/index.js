@@ -5,6 +5,7 @@ import RegisterPage from '../views/Auth/RegisterPage.vue';
 import MenuPage from '../views/MenuPage.vue';
 import CategoriePage from '../views/CategoriePage.vue';
 import PanierPage from '../views/PanierPage.vue';
+import UserPage from '../views/UserPage.vue';
 
 
 const router = createRouter({
@@ -39,7 +40,13 @@ const router = createRouter({
       component: PanierPage,
       meta: { requiresAuth: true }  // Ajouter un meta champ pour indiquer que cette route nécessite une authentification
       
-    }
+    },
+    { 
+      path: '/user',
+      component : UserPage,
+      meta: { requiresAuth: true }  // Ajouter un meta champ pour indiquer que cette route nécessite une authentification
+    },
+    { path: '/:pathMatch(.*)*', redirect: '/' }
 
   ]
 });
