@@ -98,7 +98,7 @@ export class PanierComponent implements OnInit {
   }
 
   calculerTotal(): void {
-    this.total = 0; // Réinitialisez le total avant de recalculer
+    this.total = 0;
     this.produits.forEach(produit => {
       if (this.prix[produit.id_produit] && this.quantites[produit.id_produit]) {
         this.total += this.prix[produit.id_produit] * this.quantites[produit.id_produit];
