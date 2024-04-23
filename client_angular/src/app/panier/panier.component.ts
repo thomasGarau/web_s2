@@ -3,6 +3,7 @@ import { PanierService } from '../services/panier.service';
 import { ProduitService } from '../services/produit.service';
 import { CommonModule } from '@angular/common';
 import { get } from 'http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-panier',
@@ -19,9 +20,10 @@ export class PanierComponent implements OnInit {
   label : { [id_produit: string]: string } = {};
   prix : { [id_produit: string]: number } = {};
   url : { [id_produit: string]: string } = {};
+  id_categorie : { [id_produit: string]: number } = {};
   total : number = 0;
 
-  constructor(private panierService: PanierService, private produitService: ProduitService ) {}
+  constructor(private panierService: PanierService, private produitService: ProduitService, private router: Router) {}
   
 
   ngOnInit(): void {
@@ -48,17 +50,18 @@ export class PanierComponent implements OnInit {
 
   
 
-  ajouterAuPanier(produit: any): void {
+  ajouterAuPanier(produit: any, event: MouseEvent): void {
+    event.stopPropagation();
     if (!this.quantites[produit.id_produit]) {
       this.quantites[produit.id_produit] = 0;
     }
     this.quantites[produit.id_produit]++;
-
     this.panierService.ajouterAuPanier(produit);
     this.calculerTotal();
   }
-
-  enleverDuPanier(produit: any): void {
+  
+  enleverDuPanier(produit: any, event: MouseEvent): void {
+    event.stopPropagation();
     if (!this.quantites[produit.id_produit]) {
       this.quantites[produit.id_produit] = 0;
     }
@@ -66,15 +69,20 @@ export class PanierComponent implements OnInit {
     if(this.quantites[produit.id_produit] <= 0) {
       this.produits = this.produits.filter(p => p.id_produit !== produit.id_produit);
     }
-
     this.panierService.enleverDuPanier(produit);
     this.calculerTotal();
   }
-
-  enleverDuPanierProduit(produit: any): void {
+  
+  enleverDuPanierProduit(produit: any, event: MouseEvent): void {
+    event.stopPropagation();
     this.produits = this.produits.filter(p => p.id_produit !== produit.id_produit);
-    this.panierService.enleverDuPanier(produit);
+    this.panierService.enleverDuPanierProduit(produit);
     this.calculerTotal();
+  }
+  
+
+  navigateToProduct(id_categorie: number) {
+    this.router.navigate([`/produit/${id_categorie}/produits`]);
   }
 
   getProduit(produit : any): any {
@@ -83,6 +91,7 @@ export class PanierComponent implements OnInit {
         this.label[produit.id_produit] = data.label;
         this.prix[produit.id_produit] = data.prix;
         this.url[produit.id_produit] = data.url;
+        this.id_categorie[produit.id_produit] = data.id_categorie;
         this.calculerTotal();
       }
     );
@@ -101,6 +110,7 @@ export class PanierComponent implements OnInit {
     this.panierService.viderPanier().subscribe({
       next: () => {
        this.chargerPanier();
+       this.total = 0;
       },
       error: (error: any) => {
         console.error('Erreur lors de la suppression du panier', error);

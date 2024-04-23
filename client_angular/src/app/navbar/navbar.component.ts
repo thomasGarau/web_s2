@@ -28,6 +28,11 @@ export class NavbarComponent {
     });
   }
 
+  navigateHome() {
+    this.router.navigate(['/']);
+  }
+  
+
   updateLoginStatus(): void {
     // Implémentez la logique pour mettre à jour l'état ici, si nécessaire
     this.authService.isLoggedIn().subscribe(isLoggedIn => {

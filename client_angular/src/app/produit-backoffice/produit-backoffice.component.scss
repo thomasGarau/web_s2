@@ -72,6 +72,13 @@
       border-radius: 5px;
       object-position: center;
     }
+
+    .quantite_produit_panier{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
   }
 
   input[type="text"], input[type="number"] {

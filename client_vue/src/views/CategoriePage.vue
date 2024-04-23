@@ -56,10 +56,11 @@
           <img v-if="produit.details.url" :src="produit.details.url" :alt="produit.details.label">
           <div>{{ produit.details.label }}</div>
           <div>{{ formatPrice(produit.details.prix) }}</div>
-          <div>{{ produit.details.stock }}</div>
-          <button @click="ajouterAuPanier(produit)">+</button>
-          <div class="quantite_produit_panier" v-if="produit.count > 0">{{ produit.count }}</div>
-          <button @click="enleverDuPanier(produit)" v-if="produit.count > 0">-</button>
+          <div class="quantite_produit_panier">
+            <button @click="ajouterAuPanier(produit)">+</button>
+            <div v-if="produit.count > 0">{{ produit.count }}</div>
+            <button @click="enleverDuPanier(produit)" v-if="produit.count > 0">-</button>
+          </div>
         </div>
       </div>
     </div>
@@ -163,7 +164,7 @@ export default {
       }
     },
     formatPrice(price) {
-      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
+      return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(price);
     },
     modifierLeProduit(produit) {
       produit.enEdition = true;
@@ -273,6 +274,13 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 10px;
+}
+
+.quantite_produit_panier{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   gap: 10px;
 }
 

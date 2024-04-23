@@ -32,7 +32,7 @@
       <ng-template #vueNormale>
         <div class="category-content">
           <img *ngIf="categorie.url" [src]="categorie.url" alt="{{categorie.label}}">
-          <a [routerLink]="['/produit-backoffice', categorie.id_categorie, 'produits']">{{ categorie.label }}</a>
+          <a [routerLink]="['/produit', categorie.id_categorie, 'produits']">{{ categorie.label }}</a>
           <button (click)="modifierCategorie(categorie)">Modifier</button>
           <button (click)="supprimerCategorie(categorie)">Supprimer</button>
         </div>
@@ -42,13 +42,12 @@
 </div>
 
 <div *ngIf="!isAdmin()" class="dashboard">
-  <h1>Dashboard Front Office</h1>
-  <h2>Liste des Catégories</h2>
+  <h1>Liste des Catégories</h1>
   <div class="categories-container">
     <div *ngFor="let categorie of categories" class="category-card">
       <div class="category-content">
         <img *ngIf="categorie.url" [src]="categorie.url" alt="{{categorie.label}}">
-        <a [routerLink]="['/produit-backoffice', categorie.id_categorie, 'produits']">{{ categorie.label }}</a>
+        <a [routerLink]="['/produit', categorie.id_categorie, 'produits']">{{ categorie.label }}</a>
       </div>
     </div>
   </div>

@@ -17,7 +17,7 @@ async function getPanierWithPrice(id){
             include: [{
                 model: Produit,
                 as: 'produit',
-                attributes: ['id_produit', 'label', 'url', 'prix'] // Ajoutez 'id_produit', 'label' et 'url' aux attributs à récupérer
+                attributes: ['id_produit', 'label', 'url', 'prix', 'id_categorie'] // Ajoutez 'id_produit', 'label' et 'url' aux attributs à récupérer
             }],
             attributes: ['quantite'] // Spécifiez les attributs de la table Panier à récupérer, par exemple 'quantite'
         });

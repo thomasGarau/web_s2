@@ -1,63 +1,90 @@
-$primary-color: #eb8291; 
+// Couleurs primaires et secondaires
+$primary-color: #eb8291;
 $secondary-color: #e65c5c;
 
 @keyframes slideBackground {
-    from {
-      background-position: 0 0;
-    }
-    to {
-      background-position: -100000000000000000% 0; // Change here to ensure the image slides from right to left
-    }
+  from {
+    background-position: 0 0;
   }
-
+  to {
+    /* -100vw garantit que l'image se déplace juste en dehors de l'écran */
+    background-position: -100vw 0;
+  }
+}
 
 .home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  background-image: url('fond_legume.png');
+  background-size: contain;
+  background-repeat: repeat;
+  animation: slideBackground 80s linear infinite;
+
+  .home-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-color: #f4f4f4; // Maintains a background color if needed
-    background-image: url('fond_legume.png'); // Ensure this is the correct path to your image
-    background-size: contain; // Use 'contain' to fit the image in the dimension it needs to repeat properly
-    background-repeat: repeat-x; // Repeats the background image horizontally
-    animation: slideBackground 10000000000000000s linear infinite;
+    text-align: center;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-    .home-content {
-      text-align: center;
-      padding: 2rem;
-      background-color: rgba(255, 255, 255, 0.8); // Ajoute une couleur de fond blanche transparente
-      border-radius: 10px; // Arrondit les coins du conteneur
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // Ajoute une ombre légère pour un effet de profondeur
-
-      &:hover {
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); // Assombrit l'ombre au survol
-      }
-    }
-  
-    h1 {
-      font-size: 3rem; // Taille de police pour le titre
-      color: #333; // Couleur de la police sombre pour un bon contraste
-      margin-bottom: 1rem;
-    }
-  
-    p {
-      font-size: 1.5rem; // Taille de police plus grande pour le paragraphe
-      color: #666; // Couleur de police plus légère
-      max-width: 600px; // Largeur maximale pour une meilleure lisibilité du texte
-      margin-bottom: 1rem;
-    }
-  
-    a {
-      font-size: 1.25rem; // Taille de police pour les liens
-      color: $primary-color; // Couleur pour les liens
-      text-decoration: none; // Supprime le soulignement par défaut
-      margin: 0 10px;
-  
-      &:hover {
-        text-decoration: underline; // Souligne les liens au survol pour une meilleure interactivité
-        color: darken($primary-color, 10%); // Assombrit la couleur au survol
-      }
+    &:hover {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     }
   }
-  
+
+  h1 {
+    font-size: 3rem; // Adaptation dynamique pour les grands écrans
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.25rem; // Adaptation pour une meilleure lisibilité
+    color: #666;
+    max-width: 90%; // Adaptatif à la largeur de l'écran
+    margin-bottom: 1rem;
+    line-height: 1.6; // Amélioration de la lisibilité du texte
+  }
+
+  a {
+    font-size: 1rem; // Adaptation pour les petits écrans
+    color: $primary-color;
+    text-decoration: none;
+    margin: 0 10px;
+
+    &:hover {
+      text-decoration: underline;
+      color: darken($primary-color, 10%);
+    }
+  }
+}
+
+// Media queries pour les ajustements sur petits écrans
+@media (max-width: 768px) {
+  .home-container {
+    background-size: auto; // Ajustement pour que l'image ne soit pas trop petite
+
+    .home-content {
+      padding: 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem; // Taille réduite pour les petits écrans
+    }
+
+    p {
+      font-size: 1rem; // Réduction de la taille de la police
+    }
+
+    a {
+      font-size: 0.875rem; // Taille plus petite pour les liens
+    }
+  }
+}

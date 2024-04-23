@@ -1,16 +1,17 @@
-$primary-color: #eb8291; 
+// Couleurs primaires et secondaires
+$primary-color: #eb8291;
 $secondary-color: #e65c5c;
 
 .buttons-container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  padding-top : 0.5%;
-  padding-bottom : 1.5%;
-  padding-left: 1%;
-  padding-right: 1%;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding-bottom: 1.5rem;
+  padding-left: 1vw;
+  padding-right: 1vw;
   position: fixed;
-  width: 98%;  
+  width: 98vw;
   top: 0;
   left: 0;
   z-index: 1;
@@ -22,10 +23,9 @@ $secondary-color: #e65c5c;
   flex: 1;
   display: flex;
   justify-content: flex-start;
-  
 
   img {
-    height: 80px;
+    height: 8vh; // Utilisation de vh pour que la taille de l'image s'adapte à la hauteur de l'écran
   }
 }
 
@@ -40,17 +40,17 @@ $secondary-color: #e65c5c;
 }
 
 .active {
-  background-color: darken( $primary-color, 10%);
+  background-color: darken($primary-color, 10%);
   color: white;
 }
 
 .button-base {
-  margin: 0 5px;
-  padding: 10px 20px;
+  margin: 0 0.5rem;
+  padding: 0.625rem 1.25rem;
   border: none;
   border-radius: 5px;
-  font-size: 16px;
-  
+  font-size: 1rem; // Taille de police responsive
+
   outline: none;
   transition: background-color 0.3s, color 0.3s;
   background-color: $primary-color;
@@ -66,5 +66,48 @@ $secondary-color: #e65c5c;
   background-color: $secondary-color;
   &:hover {
     background-color: darken($secondary-color, 10%);
+  }
+}
+
+// Media queries pour ajustements sur petits écrans
+@media (max-width: 768px) {
+  .buttons-container {
+    padding-top: 0.5vh;
+    padding-bottom: 1.5vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    width: 96vw;
+  }
+
+  .button-base {
+    margin: 0 0.5vw;
+    padding: 0.5rem 1vw;
+    font-size: calc(0.9vw + 0.5rem);
+  }
+
+  .logo-container img {
+    height: 7vh; // Réduction de la taille de l'image sur petits écrans
+  }
+}
+
+// Ajout d'une media query spécifique pour très petits écrans
+@media (max-width: 450px) {
+  .buttons-container {
+    padding-top: 0.5vh;
+    padding-bottom: 1.5vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    width: 96vw;
+  }
+
+  .logo-container img {
+      height: 6vh; // Plus petite encore pour les très petits écrans
+    }
+  
+
+  .button-base {
+    margin: 0 0.5vw;
+    padding: 0.5rem 1vw;
+    font-size: calc(0.9vw + 0.5rem);
   }
 }

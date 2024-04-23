@@ -5,8 +5,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component'; // Assurez-vous de créer ce composant
 import { AuthGuard } from './guards/auth.guard';
-import { ReverseAuthGuard } from './guards/reverse-auth.guard'; // Nouveau guard à créer
-import { CategorieComponent } from './categorie/categorie.component';
+import { ReverseAuthGuard } from './guards/reverse-auth.guard'; 
 import { ProduitsCategorieComponent } from './produits-categorie/produits-categorie.component';
 import { PanierComponent } from './panier/panier.component';
 import { ProduitBackofficeComponent } from './produit-backoffice/produit-backoffice.component';
@@ -16,11 +15,10 @@ export const routes: Routes = [
     { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [ReverseAuthGuard] },
     { path: 'login', component: LoginComponent, canActivate: [ReverseAuthGuard] },
     { path: 'register', component: RegisterComponent, canActivate: [ReverseAuthGuard] },
-    { path: 'categorie', component: CategorieComponent, canActivate: [AuthGuard] },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'categories/:id/produits', component: ProduitsCategorieComponent, canActivate: [AuthGuard] },
     { path: 'panier', component: PanierComponent, canActivate: [AuthGuard] },
-    { path: 'produit-backoffice/:id/produits', component: ProduitBackofficeComponent, canActivate: [AuthGuard] },
+    { path: 'produit/:id/produits', component: ProduitBackofficeComponent, canActivate: [AuthGuard] },
     { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
     { path: '**', redirectTo: '' }
 ];

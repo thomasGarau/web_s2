@@ -33,11 +33,7 @@ export default {
 </script>
 
 <style scoped>
-:root {
-  --primary-color: #eb8291;
-  --secondary-color: #e65c5c;
-  --dark-primary-color: #ca6d73; /* Approximation de darken($primary-color, 10%) */
-}
+
 
 .login-container {
   display: flex;
@@ -48,8 +44,10 @@ export default {
   background-image: url('fond_vert.png');
   background-size: contain;
   background-repeat: repeat;
-  animation: slideBackground 10000000000000000s linear infinite;
   overflow-y: hidden;
+
+  /* Utiliser 100vw pour une seule répétition complète à travers le viewport */
+  animation: slideBackground 80s linear infinite;
 }
 
 @keyframes slideBackground {
@@ -57,22 +55,24 @@ export default {
     background-position: 0 0;
   }
   to {
-    background-position: -100000000000000000% 0;
+    /* -100vw garantit que l'image se déplace juste en dehors de l'écran */
+    background-position: -100vw 0;
   }
 }
+
 
 .login-container form {
   padding: 3rem;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
   width: 80%;
-  max-width: 600px;
-  margin: 20px;
+  max-width: 37.5rem; /* 600px converted to rem assuming 16px base font size */
+  margin: 1.25rem;
 }
 
 .login-container form:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
 }
 
 .login-container form div {
@@ -90,7 +90,7 @@ export default {
   width: 95%;
   padding: 1rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 0.25rem;
 }
 
 .login-container form input:focus {
@@ -114,7 +114,7 @@ export default {
   background-color: var(--primary-color);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   cursor: pointer;
 }
 
@@ -127,3 +127,4 @@ export default {
   cursor: not-allowed;
 }
 </style>
+

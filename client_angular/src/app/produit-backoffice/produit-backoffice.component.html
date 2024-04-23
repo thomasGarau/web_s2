@@ -58,9 +58,11 @@
         <div>{{ produit.label }}</div>
         <div>{{ produit.prix | currency }}</div>
         <div>{{ produit.stock }}</div>
-        <button (click)="ajouterAuPanier(produit)">+</button>
-        <div class="quantite_produit_panier" *ngIf="quantites[produit.id_produit] && quantites[produit.id_produit] > 0">{{ quantites[produit.id_produit] }}</div>
-        <button (click)="enleverDuPanier(produit)" [hidden]="!quantites[produit.id_produit] || quantites[produit.id_produit] <= 0">-</button>
+        <div class="quantite_produit_panier">
+          <button (click)="ajouterAuPanier(produit)">+</button>
+          <div class="quantite_produit_panier" *ngIf="quantites[produit.id_produit] && quantites[produit.id_produit] > 0">{{ quantites[produit.id_produit] }}</div>
+          <button (click)="enleverDuPanier(produit)" [hidden]="!quantites[produit.id_produit] || quantites[produit.id_produit] <= 0">-</button>
+        </div>
       </div>
     </div>
   </div>

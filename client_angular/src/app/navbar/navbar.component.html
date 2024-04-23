@@ -2,7 +2,7 @@
   <ng-container *ngIf="(authService.isLoggedIn() | async); else loggedOut">
     <!-- Logo à gauche -->
     <div class="logo-container">
-      <img src="../../assets/img/SupermarcheLogo2.png" alt="logo" class="logo" />
+      <img src="../../assets/img/SupermarcheLogo2.png" alt="logo" class="logo" (click)="navigateHome()" />
     </div>
     
     <!-- Tous les boutons à droite -->
@@ -22,7 +22,7 @@
   <ng-template #loggedOut>
     <!-- Même structure pour loggedOut -->
     <div class="logo-container">
-      <img src="../../assets/img/SupermarcheLogo2.png" alt="logo" class="logo" />
+      <img src="../../assets/img/SupermarcheLogo2.png" alt="logo" class="logo" (click)="navigateHome()" />
     </div>
     <div class="all-buttons">
       <div class="left-buttons">
