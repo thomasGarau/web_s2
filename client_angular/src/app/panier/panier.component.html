@@ -6,7 +6,7 @@
                 <img *ngIf="url[produit.id_produit]" [src]="url[produit.id_produit]" alt="{{label[produit.id_produit]}}">
                 <div>{{ label[produit.id_produit] }}</div>
                 <div>{{ prix[produit.id_produit] | currency }}</div>
-                <div>{{ quantites[produit.id_produit] }} <button (click)="enleverDuPanier(produit)">-</button>  </div>
+                <div><button (click)="ajouterAuPanier(produit)">+</button> {{ quantites[produit.id_produit] }} <button (click)="enleverDuPanier(produit)">-</button>  </div>
                 <button (click)="enleverDuPanierProduit(produit)">Enlever du panier</button>
             </div>
         </div>

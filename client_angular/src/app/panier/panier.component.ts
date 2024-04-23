@@ -73,7 +73,7 @@ export class PanierComponent implements OnInit {
 
   enleverDuPanierProduit(produit: any): void {
     this.produits = this.produits.filter(p => p.id_produit !== produit.id_produit);
-    this.panierService.enleverDuPanier(produit);
+    this.panierService.removeFromCart(produit.id_produit);
     this.calculerTotal();
   }
 
@@ -89,7 +89,7 @@ export class PanierComponent implements OnInit {
   }
 
   calculerTotal(): void {
-    this.total = 0; // Réinitialisez le total avant de recalculer
+    this.total = 0;
     this.produits.forEach(produit => {
       if (this.prix[produit.id_produit] && this.quantites[produit.id_produit]) {
         this.total += this.prix[produit.id_produit] * this.quantites[produit.id_produit];

@@ -128,6 +128,32 @@ export class PanierService {
     );
   }
 
+  
+  removeFromCart(id_produit: any): void {
+    const token = localStorage.getItem('auth_token');
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    const user = localStorage.getItem('user');
+    if(!user) {
+      console.error('Utilisateur non connecté');
+      return;
+    }
+    const params = new HttpParams()
+      .set('id_utilisateur', user)
+      .set('id_produit', id_produit);
+
+    this.http.delete<any>(`${this.appUrl}/RemoveFromPanier`, { headers, params }).subscribe(
+      response => {
+        console.log('Réponse de la requête', response);
+      },
+      error => {
+        console.error('Erreur lors de la suppression du produit du panier', error);
+      }
+    );
+  }
+
 
   
 }
