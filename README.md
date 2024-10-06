@@ -42,6 +42,9 @@ Ce site inclut un espace administrateur et un espace client pour une gestion bas
    - DB_PORT=
    - DB_NAME=
    - JWT_SECRET=
+   - CLOUDINARY_CLOUD_NAME=
+   - CLOUDINARY_API_KEY=
+   - CLOUDINARY_API_SECRET=
 ### **Base de données**
 - Créer une base de données MySQL puis importer le fichier ```db.sql``` pour obtenir uniquement la structure des tables ou ```web_s2_2.sql``` pour avoir des données d'exemple.
 
@@ -50,8 +53,8 @@ Lancer le serveur ainsi que le client de votre choix. Les trois clients sont ide
 
 Vous pouvez accéder aux clients via les adresses suivantes après avoir lancé le serveur et le client :
 
-- ### React : http://localhost:3000
-- ### Angular : http://localhost:4200
-- ### Vue : http://localhost:8080
+- React : ```http://localhost:3000```
+- Angular : ```http://localhost:4200```
+- Vue : ```http://localhost:8080```
 
-Le projet propose deux types d'utilisateurs : administrateurs et clients. 
+Le projet propose deux types d'utilisateurs : administrateurs et clients. Les administrateur doivent être insérer en dure directement dans la bdd
